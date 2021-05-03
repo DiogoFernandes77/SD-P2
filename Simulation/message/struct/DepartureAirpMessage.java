@@ -5,6 +5,11 @@ import Simulation.message.Message;
 import java.io.Serializable;
 
 public class DepartureAirpMessage implements Serializable, Message{
+    @Override
+    public Enum getType() {
+        return null;
+    }
+
     public enum DpAirpMessage{
         // generic    
         SUCESSS,
