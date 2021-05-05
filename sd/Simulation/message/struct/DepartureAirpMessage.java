@@ -1,6 +1,6 @@
 package Simulation.message.struct;
 
-import Simulation.entities.Passenger;
+import Simulation.client.Passenger;
 import Simulation.message.Message;
 import java.io.Serializable;
 
@@ -12,7 +12,7 @@ public class DepartureAirpMessage implements Serializable, Message{
 
     public enum DpAirpMessage{
         // generic    
-        SUCESSS,
+        SUCCESSS,
         SHUT,
         
         //Pilot

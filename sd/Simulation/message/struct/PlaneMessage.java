@@ -8,7 +8,7 @@ import java.io.Serializable;
 public class PlaneMessage implements Serializable, Message{
     public enum PlMessage{
         // generic    
-        SUCESSS,
+        SUCCESSS,
         SHUT,
         
         //Pilot

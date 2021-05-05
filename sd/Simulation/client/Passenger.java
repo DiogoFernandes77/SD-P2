@@ -3,7 +3,7 @@
  *  @author António Ramos e Diogo Fernandes
  */
 
-package Simulation.entities;
+package Simulation.client;
 
 import java.util.ArrayList;
 import java.util.Random;

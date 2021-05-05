@@ -7,7 +7,7 @@ import java.io.Serializable;
 public class DestinationAirpMessage implements Serializable, Message{
     public enum DstAirpMessage{
             // generic    
-        SUCESSS,
+        SUCCESSS,
         SHUT,
         
         //Pilot

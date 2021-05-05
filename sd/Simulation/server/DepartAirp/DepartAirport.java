@@ -3,7 +3,7 @@
  *  @author António Ramos e Diogo Fernandes
  */
 
-package Simulation.locations;
+package Simulation.server.DepartAirp;
 
 import java.util.LinkedList;
 import java.util.Queue;
