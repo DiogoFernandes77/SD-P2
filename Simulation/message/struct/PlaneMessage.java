@@ -63,13 +63,9 @@ public class PlaneMessage implements Serializable, Message{
         return this.type;
     }
 
-   
-
     public int getFlight_id() {
         return this.flight_id;
     }
-
-    
 
     public Passenger getPerson() {
         return this.person;
