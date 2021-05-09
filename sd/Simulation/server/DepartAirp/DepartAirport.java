@@ -32,7 +32,7 @@ public class DepartAirport {
     private boolean boardingComplete = false;
     private boolean block_state2 = false;
     //construct for the departure airport, know passenger, plane capacity, min and max of boarding
-    private DepartAirport(){
+    public DepartAirport(){
         lock = new ReentrantLock();
 
         queue = new LinkedList<>();
@@ -59,11 +59,11 @@ public class DepartAirport {
         // }
     }
 
-    public static DepartAirport getInstance() {
-        if (depArp_instance == null)
-            depArp_instance = new DepartAirport();
-        return depArp_instance;
-    }
+    // public static DepartAirport getInstance() {
+    //     if (depArp_instance == null)
+    //         depArp_instance = new DepartAirport();
+    //     return depArp_instance;
+    // }
 
     //---------------------------------------------------/Pilot methods/-----------------------------------------------------//
     
