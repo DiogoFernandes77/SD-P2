@@ -1,5 +1,7 @@
 package Simulation.server;
 
+
+import Simulation.message.Message;
 /**
  *   Este tipo de dados define o thread agente prestador de serviço para uma solução do Problema dos Barbeiros
  *   Sonolentos que implementa o modelo cliente-servidor de tipo 2 (replicação do servidor) com lançamento estático dos
@@ -64,9 +66,8 @@ public class Proxy extends Thread
             System.out.println(this.getName() + " received a Message: " + inMessage.toString());
             outMessage = server.processAndReply (inMessage);         // processá-lo
         }
-        catch (MessageException e)
+        catch (Exception e)
         { System.out.println("Thread " + getName () + ": " + e.getMessage () + "!");
-            System.out.println(e.getMessageVal ().toString ());
             System.exit (1);
         }
         sconi.writeObject (outMessage);                                // enviar resposta ao cliente
@@ -81,12 +82,12 @@ public class Proxy extends Thread
 
     private static int getProxyId ()
     {
-        Class<sd.airport.server.Proxy> cl = null;             // representação do tipo de dados ClientProxy na máquina
+        Class<Simulation.server.Proxy> cl = null;             // representação do tipo de dados ClientProxy na máquina
         //   virtual de Java
         int proxyId;                                         // identificador da instanciação
 
         try
-        { cl = (Class<sd.airport.server.Proxy>) Class.forName ("sd.airport.server.Proxy");
+        { cl = (Class<Simulation.server.Proxy>) Class.forName ("Simulation.server.Proxy");
         }
         catch (ClassNotFoundException e)
         { System.out.println("O tipo de dados ClientProxy não foi encontrado!");
