@@ -1,18 +1,14 @@
 package Simulation.message.struct;
 
-import Simulation.client.Passenger;
+
 import Simulation.message.Message;
 import java.io.Serializable;
 
 public class DepartureAirpMessage implements Serializable, Message{
-    @Override
-    public Enum getType() {
-        return null;
-    }
-
+    
     public enum DpAirpMessage{
         // generic    
-        SUCCESSS,
+        SUCCESS,
         SHUT,
         
         //Pilot
@@ -32,20 +28,38 @@ public class DepartureAirpMessage implements Serializable, Message{
         PASS_WAIT_QUEUE,
         PASS_SHOW_DOCS,
         
+        GET_CURRENT_CAPACITY,
   
     }
     private DpAirpMessage type; 
-    private Passenger person;
-
+    private int person_id;
+    
+   
 
     public DepartureAirpMessage(DpAirpMessage type){
         this.type = type;
 
     }
 
-    public DepartureAirpMessage(DpAirpMessage type, Passenger person){
+    public DepartureAirpMessage(DpAirpMessage type, int person_id){
         this.type = type;
-        this.person = person;
+        this.person_id = person_id;
+    }
+    
+    
+
+    public int getPerson_id() {
+        return this.person_id;
+    }
+    
+    
+    @Override
+    public Enum getType() {
+        return null;
     }
 
+    @Override
+    public String toString() {
+        return "Type: " + type;
+    }
 }

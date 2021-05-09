@@ -1,5 +1,7 @@
 package Simulation.server;
 
+import Simulation.message.Message;
+
 /**
  * Interface for the Shared Region Interfaces
  */
