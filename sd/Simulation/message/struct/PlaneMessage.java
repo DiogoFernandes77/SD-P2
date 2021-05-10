@@ -8,7 +8,7 @@ import java.io.Serializable;
 public class PlaneMessage implements Serializable, Message{
     public enum PlMessage{
         // generic    
-        SUCCESSS,
+        SUCCESS,
         SHUT,
         
         //Pilot
@@ -32,8 +32,8 @@ public class PlaneMessage implements Serializable, Message{
 
 
     private PlMessage type;
-    private int flight_id;
-    private Passenger person;
+    private int id;
+    
 
    
    
@@ -44,32 +44,25 @@ public class PlaneMessage implements Serializable, Message{
 
     }
 
-    public PlaneMessage(PlMessage type, int flight_id){
+    public PlaneMessage(PlMessage type, int id){
         this.type = type;
-        this.flight_id = flight_id;
+        this.id = id;
         
     }
 
 
 
-    public PlaneMessage(PlMessage type, Passenger person){
-        this.type = type;
-        this.person = person;
-
-
-    }
+    
     
     public PlMessage getType() {
         return this.type;
     }
 
-    public int getFlight_id() {
-        return this.flight_id;
+    public int getId() {
+        return this.id;
     }
 
-    public Passenger getPerson() {
-        return this.person;
-    }
+    
 
 
 }

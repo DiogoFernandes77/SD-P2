@@ -3,7 +3,7 @@
  *  @author António Ramos e Diogo Fernandes
  */
 
-package Simulation.entities;
+package Simulation.client;
 
 import Simulation.Log_file.Logger_Class;
 import Simulation.locations.DepartAirport;
@@ -38,6 +38,7 @@ public class Pilot extends Thread{
     @Override
     public void run(){
         do{
+            setFlightID();
             informPlaneReadyForBoarding();
             waitForAllInBoarding();
             System.out.print("PILOT: GOING TO FLY \n" );
@@ -51,9 +52,13 @@ public class Pilot extends Thread{
         System.out.println("PILOT RUNS ENDED \n");
     }
 
-    private void informPlaneReadyForBoarding(){
-        id_to_set++;
+    private void setFlightID(){
+    	id_to_set++;
         Plane.getInstance().setFlightId(id_to_set);
+    }
+    
+    private void informPlaneReadyForBoarding(){
+        
         pilot_state = State.READY_FOR_BOARDING;
         synchronized (Logger_Class.class)
         {

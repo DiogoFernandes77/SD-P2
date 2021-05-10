@@ -3,10 +3,10 @@
  *  @author António Ramos e Diogo Fernandes
  */
 
-package Simulation.locations;
+package Simulation.server.Plane;
 
 import Simulation.Log_file.Logger_Class;
-import Simulation.entities.*;
+
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Condition;
@@ -17,8 +17,7 @@ import java.util.Random;
 public class Plane  {
     // static variable single_instance of type Singleton
     private static Plane plane_instance = null;
-    private ArrayList<Passenger> plane;
-    private Pilot pilot;
+    private ArrayList<Integer> plane;
     private Condition flying;
     private Condition hostess;
     private Condition cd_deboarding;
@@ -31,23 +30,22 @@ public class Plane  {
     //private final Condition arrived;
 
     private Plane(){
-        plane = new ArrayList<Passenger>();
+        plane = new ArrayList<Integer>();
         lock = new ReentrantLock();
         flying = lock.newCondition();
         hostess = lock.newCondition();
         cd_deboarding = lock.newCondition();
-        synchronized (Logger_Class.class)
-        {
-            Logger_Class.getInstance().setIN_F(plane);
-        }
+        // synchronized (Logger_Class.class) {
+        //     Logger_Class.getInstance().setIN_F(plane);
+        // }
     }
 
     // static method to create instance of Singleton class
-    public static Plane getInstance() {
-        if (plane_instance == null)
-            plane_instance = new Plane();
-        return plane_instance;
-    }
+    // public static Plane getInstance() {
+    //     if (plane_instance == null)
+    //         plane_instance = new Plane();
+    //     return plane_instance;
+    // }
 
     //---------------------------------------------------/Pilot methods/-----------------------------------------------------//
     public void flyToDestinationPoint(){
@@ -56,7 +54,8 @@ public class Plane  {
         try{
             flying.await(delay, TimeUnit.MILLISECONDS);
         }catch(Exception e){
-             System.out.println("Interrupter Exception Error - " + e.toString());
+             System.out.println("Interrupter Exception Error - " + e);
+            e.printStackTrace();
          }finally{
             lock.unlock();
          }
@@ -67,7 +66,8 @@ public class Plane  {
         try{
             flight_id = id;
         }catch(Exception e){
-            System.out.println("Interrupter Exception Error - " + e.toString());
+            System.out.println("Interrupter Exception Error - " + e);
+            e.printStackTrace();
          }finally{
             lock.unlock();
          }
@@ -83,7 +83,8 @@ public class Plane  {
             }
             System.out.println("PILOT: deboarding complete \n");
         }catch(Exception e){
-             System.out.println("Interrupter Exception Error - " + e.toString());
+            System.out.println("Interrupter Exception Error - " + e);
+            e.printStackTrace();
          }finally{
             lock.unlock();
          }
@@ -97,7 +98,8 @@ public class Plane  {
             plane_flying = true;
             flying.await(delay, TimeUnit.MILLISECONDS);
         }catch(Exception e){
-             System.out.println("Interrupter Exception Error - " + e.toString());
+            System.out.println("Interrupter Exception Error - " + e);
+            e.printStackTrace();
          }finally{
             lock.unlock();
          }
@@ -112,24 +114,29 @@ public class Plane  {
             }
             enter = false;
          }catch(Exception e){
-             System.out.println("Interrupter Exception Error - " + e.toString());
-         }finally{
+            System.out.println("Interrupter Exception Error - " + e);
+            e.printStackTrace();
+        }finally{
             lock.unlock();
          }
     }
 
     //---------------------------------------------------/Passenger methods/-----------------------------------------------------//
-    public void boardThePlane(Passenger person){
+    public void boardThePlane(int person){
         lock.lock();
         try{
             plane.add(person);
             enter = true;
             hostess.signal();
-            System.out.printf("passenger %d boarding plane \n", person.getId_passenger());
-
+            System.out.printf("passenger %d boarding plane \n", person);
+            // synchronized (Logger_Class.class) {
+            //     Logger_Class.getInstance().setIN_F(plane);
+            // }
          }catch(Exception e){
-             System.out.println("Interrupter Exception Error - " + e.toString());
-         }finally{
+            System.out.println("Interrupter Exception Error - " + e);
+            e.printStackTrace();
+
+        }finally{
              lock.unlock();
          }
     }
@@ -141,21 +148,25 @@ public class Plane  {
                flying.await(); 
             }
         }catch(Exception e){
-            System.out.println("Interrupter Exception Error - " + e.toString());
+            System.out.println("Interrupter Exception Error - " + e);
+            e.printStackTrace();
         }finally{
             lock.unlock();
         }
     }
     
-    public void leaveThePlane(Passenger person){
+    public void leaveThePlane(int person){
         lock.lock();
         try{
-            plane.remove(person);
+            plane.remove(Integer.valueOf(person));
             cd_deboarding.signal();
-            System.out.printf("Passenger %d leaving the plane \n", person.getId_passenger());
-
+            System.out.printf("Passenger %d leaving the plane \n", person);
+            // synchronized (Logger_Class.class) {
+            //     Logger_Class.getInstance().setIN_F(plane);
+            // }
         }catch(Exception e){
-            System.out.println("Interrupter Exception Error - " + e.toString());
+            System.out.println("Interrupter Exception Error - " + e);
+            e.printStackTrace();
         }finally{
             lock.unlock();
         }
