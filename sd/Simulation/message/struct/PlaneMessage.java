@@ -1,7 +1,7 @@
 package Simulation.message.struct;
 
-import Simulation.entities.Passenger;
-import Simulation.locations.Plane;
+
+
 import Simulation.message.Message;
 import java.io.Serializable;
 

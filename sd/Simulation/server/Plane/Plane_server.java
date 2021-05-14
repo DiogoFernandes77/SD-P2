@@ -14,7 +14,7 @@ public class Plane_server {
         
         Plane plane = new Plane();
 
-        Plane_interface plane_inter = new Plane_interface(plane_inter);
+        Plane_interface plane_inter = new Plane_interface(plane);
 
         ServerCom scon = new ServerCom(4002);
         Proxy proxy;
@@ -25,7 +25,7 @@ public class Plane_server {
             
             try{
                 sconi = scon.accept();
-                proxy = new Proxy(sconi, dep_inter);
+                proxy = new Proxy(sconi, plane_inter);
                 proxy.start();
 
             }catch (SocketTimeoutException e) {}

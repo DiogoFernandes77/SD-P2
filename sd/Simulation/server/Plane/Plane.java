@@ -5,7 +5,7 @@
 
 package Simulation.server.Plane;
 
-import Simulation.Log_file.Logger_Class;
+//import Simulation.Log_file.Logger_Class;
 
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
@@ -29,7 +29,7 @@ public class Plane  {
     Random gen = new Random();
     //private final Condition arrived;
 
-    private Plane(){
+    public Plane(){
         plane = new ArrayList<Integer>();
         lock = new ReentrantLock();
         flying = lock.newCondition();
