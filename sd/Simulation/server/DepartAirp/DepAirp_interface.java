@@ -72,7 +72,7 @@ public class DepAirp_interface implements Serverable{
         else if(GET_CURRENT_CAPACITY.equals(requestType)){
             
             int current_capacity = depAirp.getCurrent_capacity();
-            response = new DepartureAirpMessage(SUCCESS);
+            response = new DepartureAirpMessage(SUCCESS,current_capacity);
             
         }
         

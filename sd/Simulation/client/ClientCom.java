@@ -1,4 +1,4 @@
-package sd.airport.client;
+package Simulation.client;
 
 import java.io.*;
 import java.net.*;
