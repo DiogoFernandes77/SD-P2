@@ -1,13 +1,12 @@
 package Simulation.message.struct;
 
-import Simulation.entities.Passenger;
 import Simulation.message.Message;
 import java.io.Serializable;
 
 public class DestinationAirpMessage implements Serializable, Message{
     public enum DstAirpMessage{
             // generic    
-        SUCCESSS,
+        SUCCESS,
         SHUT,
         
         //Pilot
@@ -22,7 +21,7 @@ public class DestinationAirpMessage implements Serializable, Message{
     }
     
     private DstAirpMessage type;
-    private Passenger person;
+    private int id;
 
 	
 
@@ -32,9 +31,9 @@ public class DestinationAirpMessage implements Serializable, Message{
 
     }
 
-    public DestinationAirpMessage(DstAirpMessage type, Passenger person){
+    public DestinationAirpMessage(DstAirpMessage type, int id){
         this.type = type;
-        this.person = person;
+        this.id = id;
 
 
     }
@@ -42,8 +41,8 @@ public class DestinationAirpMessage implements Serializable, Message{
     public DstAirpMessage getType() {
 		return this.type;
 	}
-	public Passenger getPerson() {
-		return this.person;
+	public int getId() {
+		return this.id;
 	}
     
     @Override
