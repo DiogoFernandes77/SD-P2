@@ -2,7 +2,7 @@ package Simulation.stub;
 
 import Simulation.client.ClientCom;
 import Simulation.message.struct.DepartureAirpMessage;
-import Simulation.message.struct.DepartureAirpMessage.DpAirpMessage;
+
 
 import java.util.ArrayList;
 
