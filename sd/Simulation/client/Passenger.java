@@ -8,11 +8,6 @@ package Simulation.client;
 import java.util.ArrayList;
 import java.util.Random;
 
-//import Simulation.Log_file.Logger_Class;
-import Simulation.locations.DepartAirport;
-import Simulation.locations.DestAirport;
-import Simulation.locations.Plane;
-
 public class Passenger extends Thread{
     private int id_passenger = 0;
     private int count_AtDest = 0;

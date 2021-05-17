@@ -6,7 +6,7 @@
 package Simulation.server.DestinationAirp;
 
 import java.util.ArrayList;
-//import Simulation.Log_file.Logger_Class;
+//import Simulation.server.Log_file.Logger_Class;
 
 public class DestAirport{
     private static DestAirport destArp_instance = null;

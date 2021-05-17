@@ -2,13 +2,7 @@
  *  Log Class to produce log file each initiation
  *  @author António Ramos e Diogo Fernandes
  */
-
-package Simulation.entities;
-
-import Simulation.Log_file.Logger_Class;
-import Simulation.locations.DepartAirport;
-import Simulation.locations.Plane;
-
+package Simulation.client;
 
 public class Hostess extends Thread{
     public enum State{

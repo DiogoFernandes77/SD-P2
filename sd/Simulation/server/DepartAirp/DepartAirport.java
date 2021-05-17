@@ -11,9 +11,6 @@ import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-//import Simulation.Log_file.Logger_Class;
-// import Simulation.Start;
-
 
 public class DepartAirport {
     private static DepartAirport depArp_instance = null;

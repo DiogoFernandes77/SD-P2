@@ -1,11 +1,7 @@
 package Simulation.server;
 
-
 import Simulation.message.Message;
 /**
- *   Este tipo de dados define o thread agente prestador de serviço para uma solução do Problema dos Barbeiros
- *   Sonolentos que implementa o modelo cliente-servidor de tipo 2 (replicação do servidor) com lançamento estático dos
- *   threads barbeiro.
  *   A comunicação baseia-se em passagem de mensagens sobre sockets usando o protocolo TCP.
  */
 
@@ -33,7 +29,7 @@ public class Proxy extends Thread
      *    @serialField bShopInter
      */
 
-    private Serverable server;
+    private Simulation.server.Serverable server;
 
     /**
      *  Instanciação do interface à barbearia.

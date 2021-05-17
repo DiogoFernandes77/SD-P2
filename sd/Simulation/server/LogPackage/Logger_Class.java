@@ -3,9 +3,8 @@
  *  @author António Ramos e Diogo Fernandes
  */
 
-package Simulation.Log_file;
+package Simulation.server.LogPackage;
 
-import Simulation.Start;
 import Simulation.entities.Hostess;
 import Simulation.entities.Passenger;
 import Simulation.entities.Pilot;
@@ -17,10 +16,9 @@ import java.util.Queue;
 
 public class Logger_Class {
     //implements singleton for repository information about what happens in the simulation, gives output file
-    private static Logger_Class loggerClass = null; // instance of Logger_Class
 
     private static String file_name; // name file
-    private final static String directory_file = "Simulation/Log_file/"; // where output files is stored
+    private final static String directory_file = "Simulation/server/Log_file/"; // where output files is stored
     private final static String default_name = "Logger_"; //default name
     private final static String extension_file = ".txt"; //extension file
 
@@ -32,9 +30,9 @@ public class Logger_Class {
     public Pilot.State ST_Pilot; // State of the Pilot
     public Hostess.State ST_Hostess; // State of the Hostess
 
-    private ArrayList<Passenger> Q; // State of the waiting queue
-    private ArrayList<Passenger> IN_F; // State of in flight
-    private ArrayList<Passenger> ATL; // State of number of passengers that have already arrived at their destination
+    private ArrayList<Integer> Q; // State of the waiting queue
+    private ArrayList<Integer> IN_F; // State of in flight
+    private ArrayList<Integer> ATL; // State of number of passengers that have already arrived at their destination
 
     private static FileWriter fileWriter; // Write on file
 
@@ -219,9 +217,9 @@ public class Logger_Class {
 
     public void setST_Hostess(Hostess.State st) { this.ST_Hostess = st; }
 
-    public void setQ(Queue<Passenger> q) { Q = new ArrayList<>(q); }
+    public void setQ(Queue<Integer> q) { Q = new ArrayList<>(q); }
 
-    public void setIN_F(ArrayList<Passenger> IN_F) { this.IN_F = IN_F; }
+    public void setIN_F(ArrayList<Integer> IN_F) { this.IN_F = IN_F; }
 
-    public void setATL(ArrayList<Passenger> ATL) { this.ATL = ATL; }
+    public void setATL(ArrayList<Integer> ATL) { this.ATL = ATL; }
 }
