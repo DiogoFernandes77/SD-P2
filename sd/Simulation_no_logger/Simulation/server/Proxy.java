@@ -24,7 +24,7 @@ public class Proxy extends Thread
     private ServerCom sconi;
 
     /**
-     *  Interface à barbearia
+     *  Interface às localizações(plane,depAirp,destAirp)
      *
      *    @serialField bShopInter
      */
@@ -32,10 +32,10 @@ public class Proxy extends Thread
     private Simulation.server.Serverable server;
 
     /**
-     *  Instanciação do interface à barbearia.
+     *  Instanciação do interface às localizações(plane,depAirp,destAirp)
      *
      *    @param sconi canal de comunicação
-     *    @param server interface à barbearia
+     *    @param server interface às localizações(plane,depAirp,destAirp)
      */
 
     public Proxy (ServerCom sconi, Serverable server)
