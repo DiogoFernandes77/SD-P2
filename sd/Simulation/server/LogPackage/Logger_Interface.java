@@ -19,10 +19,14 @@ public class Logger_Interface implements Serverable {
         this.logger = log;
     }
 
+
+
     @Override
     public Message processAndReply(Message inMessage) {
         Message response = null;
         Enum type = inMessage.getType();
+       
+        
        
         if(PASS_STATE.equals(type)){
             int id = ((LoggerMessage) inMessage).getId();
@@ -48,8 +52,12 @@ public class Logger_Interface implements Serverable {
             Pilot.State ST_Pilot = ((LoggerMessage) inMessage).getST_Pilot();
             int FN = ((LoggerMessage) inMessage).getFN();
             String log = ((LoggerMessage) inMessage).getLog();
+            
+            
             if (ST_Pilot.equals(Pilot.State.READY_FOR_BOARDING)){
+                
                 synchronized (Logger_Class.class){
+                    
                     logger.setST_Pilot(ST_Pilot);
                     logger.board_start("\nFlight " + FN + ": boarding started.\n");
                 }
@@ -58,16 +66,21 @@ public class Logger_Interface implements Serverable {
                     logger.setST_Pilot(ST_Pilot);
                     logger.board_start("\nFlight " + FN + ": arrived.\n");
                 }
+            
+            
             } else if (ST_Pilot.equals(Pilot.State.FLYING_BACK)){
                 synchronized (Logger_Class.class){
                     logger.setST_Pilot(ST_Pilot);
                     logger.board_start("\nFlight " + FN + ": returning.\n");
                 }
             }else {
+               
                 synchronized (Logger_Class.class){
                     logger.setST_Pilot(ST_Pilot);
                     logger.log_write(log);
                 }
+                
+            
             }
         }else if (HOS_STATE.equals(type)){
             Hostess.State ST_Hostess = ((LoggerMessage) inMessage).getST_Hostess();
@@ -75,6 +88,7 @@ public class Logger_Interface implements Serverable {
                 logger.setST_Hostess(ST_Hostess);
             }
         } else if (HOS_STATE_LOG.equals(type)){
+            
             Hostess.State ST_Hostess = ((LoggerMessage) inMessage).getST_Hostess();
             String log = ((LoggerMessage) inMessage).getLog();
             synchronized (Logger_Class.class){
@@ -90,6 +104,7 @@ public class Logger_Interface implements Serverable {
             (((Proxy) (Thread.currentThread())).getScon()).setTimeout(10);
 
         }
-        return (Message) new LoggerMessage(SUCCESS);
+        response = new LoggerMessage(SUCCESS);  
+        return response;
     }
 }

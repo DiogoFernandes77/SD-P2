@@ -162,27 +162,42 @@ public class Logger_Class {
             StringBuilder struct_string = new StringBuilder();
             struct_string.append(Pilot_state[ST_Pilot.ordinal()]).append(" ");
             struct_string.append(Hostess_state[ST_Hostess.ordinal()]).append(" ");
-
+            System.out.println(struct_string.toString());
             for (int i = 0; i < nPassenger; i ++){
-                struct_string.append(Passenger_state[ST_Passenger[i].ordinal()]).append(" ");
+                System.out.println("for-write");
+                try{
+                    struct_string.append(Passenger_state[ST_Passenger[i].ordinal()]).append(" ");
+                }catch(NullPointerException e){
+                    struct_string.append("");
+                }
+                
             }
 
             //struct_string.append("\t").append(Q.size()).append("\t").append(IN_F.size()).append("\t").append(ATL.size()).append("\n");
-
+            System.out.println("pre-write");
             fileWriter.write(struct_string.toString());
+            System.out.println("pos-write");
             fileWriter.close();
         } catch (IOException e){
+            System.out.print(e);
             e.printStackTrace();
         }
+        System.out.println("loggersaida");
     }
 
     // -------------------------- SETTERS ------------------------- //
 
     public void setFN(int FN) { this.FN = FN; }
 
-    public void setST_Passenger(int id, Passenger.State ST_Passenger) { this.ST_Passenger[id] = ST_Passenger; }
+    public void setST_Passenger(int id, Passenger.State ST_Passenger) { 
+        
+        this.ST_Passenger[id] = ST_Passenger; 
+    
+    }
 
-    public void setST_Pilot(Pilot.State ST_Pilot) { this.ST_Pilot = ST_Pilot; }
+    public void setST_Pilot(Pilot.State ST_Pilot) { 
+        System.out.println("set");
+        this.ST_Pilot = ST_Pilot; }
 
     public void setST_Hostess(Hostess.State st) { this.ST_Hostess = st; }
 

@@ -11,8 +11,8 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 
-import static Simulation.message.struct.DepartureAirpMessage.DpAirpMessage.PIL_INFORM_PLANE_RDY_BOARD;
-import static Simulation.message.struct.DepartureAirpMessage.DpAirpMessage.SUCCESS;
+
+
 import static Simulation.message.struct.LoggerMessage.LG_Message.*;
 
 public class Logger_stub {
@@ -69,9 +69,20 @@ public class Logger_stub {
             requestMessage = new LoggerMessage(PIL_STATE, p);
             con.writeObject(requestMessage);
             responseMessage = (LoggerMessage) con.readObject();
-            System.out.println("Error receiving message from Logger");
+            
+            
+            
+            if (responseMessage.getType() != SUCCESS)
+            {
+                System.out.println("Error receiving message from Logger");
+            }
+            
+            
+            
             con.close();
         }
+    
+    
     }
     public void pil_state_log(Pilot.State p, String x) {
         ClientCom con = new ClientCom("localhost",4004);
@@ -81,7 +92,13 @@ public class Logger_stub {
             requestMessage = new LoggerMessage(PIL_STATE_LOG, p, x);
             con.writeObject(requestMessage);
             responseMessage = (LoggerMessage) con.readObject();
-            System.out.println("Error receiving message from Logger");
+           
+            if (responseMessage.getType() != SUCCESS)
+            {
+                System.out.println("Error receiving message from Logger");
+            }
+            
+           
             con.close();
         }
     }
@@ -93,7 +110,11 @@ public class Logger_stub {
             requestMessage = new LoggerMessage(PIL_STATE_LOG,p,fn);
             con.writeObject(requestMessage);
             responseMessage = (LoggerMessage) con.readObject();
-            System.out.println("Error receiving message from Logger");
+            if (responseMessage.getType() != SUCCESS)
+            {
+                System.out.println("Error receiving message from Logger");
+            }
+            
             con.close();
         }
     }
@@ -107,7 +128,10 @@ public class Logger_stub {
             requestMessage = new LoggerMessage(HOS_STATE, ht);
             con.writeObject(requestMessage);
             responseMessage = (LoggerMessage) con.readObject();
-            System.out.println("Error receiving message from Logger");
+            if (responseMessage.getType() != SUCCESS)
+            {
+                System.out.println("Error receiving message from Logger");
+            }
             con.close();
         }
     }
@@ -120,7 +144,10 @@ public class Logger_stub {
             requestMessage = new LoggerMessage(HOS_STATE_LOG, ht, x);
             con.writeObject(requestMessage);
             responseMessage = (LoggerMessage) con.readObject();
-            System.out.println("Error receiving message from Logger");
+            if (responseMessage.getType() != SUCCESS)
+            {
+                System.out.println("Error receiving message from Logger");
+            }
             con.close();
         }
     }
@@ -133,7 +160,10 @@ public class Logger_stub {
             requestMessage = new LoggerMessage(LoggerMessage.LG_Message.SHUT);
             con.writeObject(requestMessage);
             responseMessage = (LoggerMessage) con.readObject();
-            System.out.println("Error receiving message from Logger");
+            if (responseMessage.getType() != SUCCESS)
+            {
+                System.out.println("Error receiving message from Logger");
+            }
             con.close();
         }
     }

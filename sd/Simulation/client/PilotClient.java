@@ -4,9 +4,9 @@ package Simulation.client;
  */
 public class PilotClient{
     public static void main(String[] args)
-    {
+    {   System.out.println("Starting Pilot Thread");
         Pilot pil = new Pilot();
-        System.out.println("Starting Pilot Thread");
+        
         pil.start();
         try
         {

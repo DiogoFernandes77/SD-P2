@@ -6,13 +6,18 @@
 run ()
 {
     xfce4-terminal \
-     --tab --hold -e "bash -c 'java Simulation.server.LogPackage.Logger_Server 1 1 3'" -T "Logger" \
-     --tab --hold -e "bash -c 'java Simulation.server.DepartAirp.DepAirp_server 1 1 3'" -T "DepAirp_server" \
+     --tab --hold -e "bash -c 'java Simulation.server.LogPackage.Logger_Server 6 1 3'" -T "Logger" \
+     --tab --hold -e "bash -c 'java Simulation.server.DepartAirp.DepAirp_server 6 1 3'" -T "DepAirp_server" \
      --tab --hold -e "bash -c 'java Simulation.server.DestinationAirp.DestAirp_server '" -T "DestAirp_server" \
      --tab --hold -e "bash -c 'java Simulation.server.Plane.Plane_server '" -T "Plane_Server" \
      --tab --hold -e "bash -c 'java Simulation.client.PilotClient '" -T "Pilot" \
      --tab --hold -e "bash -c 'java Simulation.client.HostessClient '" -T "Hostess" \
-     --tab --hold -e "bash -c 'java  Simulation.client.PassengerClient 0'" -T "Pass 0" 
+     --tab --hold -e "bash -c 'java  Simulation.client.PassengerClient 0'" -T "Pass 0" \
+     --tab --hold -e "bash -c 'java  Simulation.client.PassengerClient 1'" -T "Pass 1" \
+     --tab --hold -e "bash -c 'java  Simulation.client.PassengerClient 2'" -T "Pass 2" \
+     --tab --hold -e "bash -c 'java  Simulation.client.PassengerClient 3'" -T "Pass 3" \
+     --tab --hold -e "bash -c 'java  Simulation.client.PassengerClient 4'" -T "Pass 4" \
+     --tab --hold -e "bash -c 'java  Simulation.client.PassengerClient 5'" -T "Pass 5" 
      
      
      

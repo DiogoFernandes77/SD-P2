@@ -61,11 +61,7 @@ public class LoggerMessage implements Serializable, Message{
         this.log = x;
     }
 
-    public LoggerMessage(LG_Message type, ArrayList<Integer> x, Passenger.State st, int id){
-        this(type, st, id);
-
-    }
-
+   
     //state hostess
     public LoggerMessage(LG_Message type, Hostess.State ht){
         this(type);
