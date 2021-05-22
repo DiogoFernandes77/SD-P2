@@ -22,10 +22,11 @@ public class Logger_Class {
     //implements singleton for repository information about what happens in the simulation, gives output file
 
     private static String file_name; // name file
-    private final static String directory_file = "Simulation/server/Log_file/"; // where output files is stored
+    private final static String directory_file = "Simulation/server/LogPackage/"; // where output files is stored
     private final static String default_name = "Logger_"; //default name
     private final static String extension_file = ".txt"; //extension file
 
+    private static int nPassenger;
     public ArrayList<String> Summary = new ArrayList<>(); // struct to save what happened in each file
 
     //auxiliar variables
@@ -49,10 +50,9 @@ public class Logger_Class {
     //passenger variables abbreviate
     private String[] Passenger_state = new String[]{"GTAP", "INQE", "INFL", "ATDS"};
 
-    public Logger_Class() {
-        ST_Passenger = new Passenger.State[PassengerClient.n_pass];
-        int num_pass = DepAirp_server.nPassenger;
-        ST_Passenger = new Passenger.State[num_pass];
+    public Logger_Class(int nPassenger) {
+        this.nPassenger = nPassenger;
+        ST_Passenger = new Passenger.State[nPassenger];
         ST_Pilot = Pilot.State.AT_TRANSFER_GATE;
         ST_Hostess = Hostess.State.WAIT_FOR_NEXT_FLIGHT;
         this.init();
@@ -61,7 +61,7 @@ public class Logger_Class {
     //creation file
     public String createFile() {
        file_name = directory_file + default_name + extension_file; //output file
-
+       File dir = new File(file_name);
        try {
            fileWriter = new FileWriter(file_name);
            fileWriter.close();
@@ -75,7 +75,8 @@ public class Logger_Class {
     // start writing head of file
     public void init(){
         String file_name = createFile(); //creation of file
-        add_struct(file_name, DepAirp_server.nPassenger);   //header file
+        add_struct(file_name, nPassenger);   //header file
+        
     }
 
     //header file
@@ -159,7 +160,7 @@ public class Logger_Class {
             struct_string.append(Pilot_state[ST_Pilot.ordinal()]).append(" ");
             struct_string.append(Hostess_state[ST_Hostess.ordinal()]).append(" ");
 
-            for (int i = 0; i < PassengerClient.n_pass; i ++){
+            for (int i = 0; i < nPassenger; i ++){
                 struct_string.append(Passenger_state[ST_Passenger[i].ordinal()]).append(" ");
             }
             struct_string.append("\t").append(Q.size()).append("\t").append(IN_F.size()).append("\t").append(ATL.size()).append("\n");

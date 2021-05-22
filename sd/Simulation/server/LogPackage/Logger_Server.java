@@ -7,9 +7,40 @@ import java.net.SocketTimeoutException;
 
 public class Logger_Server {
     public static boolean waitConnection;
-
+    public static int nPassenger,boardMax,boardMin;
     public static void main(String[] args){
-        Logger_Class logger_class = new Logger_Class();
+        if(args.length == 3){//custom config
+            try{
+                nPassenger = Integer.parseInt(args[0]);
+                boardMin = Integer.parseInt(args[1]);
+                boardMax = Integer.parseInt(args[2]);
+            }catch(Exception e){
+                System.out.print("Args must be numbers \n");
+                System.exit(1);
+            
+            }
+            if(nPassenger == 0){
+                System.out.print(" Nº passenger can't be 0 \n");
+                System.exit(1);
+            }
+            if(boardMax < boardMin){
+                System.out.print(" Boarding max needs to be higher than boarding min \n");
+                System.exit(1);
+            }
+            System.out.print("Config Ok \n");
+        }else if(args.length == 0){//default config
+            nPassenger = 21;
+            boardMax = 8;
+            boardMin = 5;
+            System.out.print("Config Ok \n");
+        }else{
+            System.out.print("Arguments missing/wrong \n");
+            System.out.print("N_max_passengers boardMax boardMin\n");
+            System.exit(1);
+        }
+        
+        
+        Logger_Class logger_class = new Logger_Class(nPassenger);
         Logger_Interface logger_int = new Logger_Interface(logger_class);
 
         ServerCom scon = new ServerCom (4004);

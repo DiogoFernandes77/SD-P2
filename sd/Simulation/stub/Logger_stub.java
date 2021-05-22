@@ -67,19 +67,36 @@ public class Logger_stub {
     public void pass_leave(Passenger.State st,int id, ArrayList<Integer> arrayList){ this.send(new LoggerMessage(PASS_LEAVE_PLANE, arrayList, st, id));}
 */
     // Pilot methods
-    public void pilot_at_trans(Pilot.State p){ this.send(new LoggerMessage(PIL_PARK_AT_TRANSFER_GATE, p)); }
-    public void pilot_ready(Pilot.State p, int fn) { this.send(new LoggerMessage(PIL_INFORM_PLANE_RDY_BOARD, p, fn)); }
-    public void pilot_fly_for(Pilot.State p, int fn, int total){ this.send(new LoggerMessage(PIL_FlY_TO_DEST, p, fn, total)); }
+    public void pilot_at_trans(Pilot.State p){
+        this.send(new LoggerMessage(PIL_PARK_AT_TRANSFER_GATE, p));
+        }
+    public void pilot_ready(Pilot.State p, int fn) { 
+        this.send(new LoggerMessage(PIL_INFORM_PLANE_RDY_BOARD, p, fn)); }
+    
+        public void pilot_fly_for(Pilot.State p, int fn, int total){ this.send(new LoggerMessage(PIL_FlY_TO_DEST, p, fn, total)); 
+    }
     public void pilot_wait(Pilot.State p) { this.send(new LoggerMessage(PIL_WAIT_FOR_ALL_BOARDING, p)); }
     public void pilot_fly_bck(Pilot.State p, int fn) { this.send(new LoggerMessage(PIL_FLY_TO_DEP, p, fn)); }
     public void pilot_deb(Pilot.State p, int fn){ this.send(new LoggerMessage(PIL_AN_ARRIVAL, p, fn)); }
 
     // Hostess method
 
-    public void hostess_next_fl(Hostess.State h){ this.send(new LoggerMessage(HOS_WAIT_NEXT_FLIGHT, h));}
-    public void hostess_wt_pass(Hostess.State h){ this.send(new LoggerMessage(HOS_WAIT_FOR_PASSENGER, h));}
-    public void hostess_chk(Hostess.State h){ this.send(new LoggerMessage(HOS_CHECK_DOCUMENTS, h));}
-    public void hostess_rdy_fly(Hostess.State h, int cap){this.send(new LoggerMessage(HOS_INFORM_PLANE_TAKEOFF, h, cap));}
+    public void hostess_next_fl(Hostess.State h){ 
+        this.send(new LoggerMessage(HOS_WAIT_NEXT_FLIGHT, h));
+    }
+    public void hostess_wt_pass(Hostess.State h){ 
+        this.send(new LoggerMessage(HOS_WAIT_FOR_PASSENGER, h));
+    }
+    public void hostess_chk(Hostess.State h){
+         this.send(new LoggerMessage(HOS_CHECK_DOCUMENTS, h));
+        }
+    public void hostess_rdy_fly(Hostess.State h, int cap){
+        this.send(new LoggerMessage(HOS_INFORM_PLANE_TAKEOFF, h, cap));
+    }
 
-    public void shutdown(){ this.send(new LoggerMessage(LoggerMessage.LG_Message.SHUT)); }
+    public void shutdown(){
+        
+        this.send(new LoggerMessage(LoggerMessage.LG_Message.SHUT)); 
+        
+    }
 }

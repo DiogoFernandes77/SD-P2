@@ -5,10 +5,11 @@ import Simulation.client.Passenger;
 import Simulation.client.Pilot;
 import java.util.ArrayList;
 import java.util.logging.Logger;
-
+import Simulation.message.Message;
+import java.io.Serializable;
 import static Simulation.message.struct.LoggerMessage.LG_Message.*;
 
-public class LoggerMessage {
+public class LoggerMessage implements Serializable, Message{
     public enum LG_Message{
         //GENERIC MESSAGE
         SUCCESS,

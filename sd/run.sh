@@ -6,6 +6,7 @@
 run ()
 {
     xfce4-terminal \
+     --tab --hold -e "bash -c 'java Simulation.server.LogPackage.Logger_Server 11 5 8'" -T "Logger" \
      --tab --hold -e "bash -c 'java Simulation.server.DepartAirp.DepAirp_server 11 5 8'" -T "DepAirp_server" \
      --tab --hold -e "bash -c 'java Simulation.server.DestinationAirp.DestAirp_server '" -T "DestAirp_server" \
      --tab --hold -e "bash -c 'java Simulation.server.Plane.Plane_server '" -T "Plane_Server" \
