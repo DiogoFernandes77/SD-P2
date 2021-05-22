@@ -13,12 +13,13 @@ public class DestAirport{
     private final ArrayList<Integer> passenger_arrived;
     public DestAirport(){
         passenger_arrived = new ArrayList<Integer>();
-        
+        //Logger_stub.getInstance().arr("ATL",passenger_arrived);
     }
 
     //---------------------------------------------------/Passenger methods/-----------------------------------------------------//
     
     //Passenger death, adds himself to the list of passenger that arrived
     public void Passenger_death(int person){ passenger_arrived.add(person);
-        Logger_stub.getInstance().arr("ATL",passenger_arrived); }
+       // Logger_stub.getInstance().arr("ATL",passenger_arrived);
+        }
 } 

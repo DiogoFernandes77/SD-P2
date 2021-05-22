@@ -31,104 +31,55 @@ public class Logger_Interface implements Serverable {
                 logger.setST_Passenger(id, ST_Passenger);
                 //logger.log_write("");
             }
-        }else if(PASS_WAIT_QUEUE.equals(type) || PASS_ENTER_QUEUE.equals(type)){
-            ArrayList<Integer> Q = ((LoggerMessage) inMessage).getQ();
-            synchronized (Logger_Class.class){
-                logger.setQ(Q);
-            }
-        }else if(PASS_IN_FL.equals(type)){
-            ArrayList<Integer> IN_F = ((LoggerMessage) inMessage).getIN_F();
-            synchronized (Logger_Class.class){
-                logger.setIN_F(IN_F);
-            }
-        }else if (PASS_LEAVE_PLANE.equals(type)){
-            ArrayList<Integer> ATL = ((LoggerMessage) inMessage).getATL();
-            synchronized (Logger_Class.class){
-                logger.setATL(ATL);
-            }
-        }else if (PIL_PARK_AT_TRANSFER_GATE.equals(type)){
+        }else if(PASS_STATE_LOG.equals(type)){
+          int id = ((LoggerMessage) inMessage).getId();
+          Passenger.State ST_Passenger = ((LoggerMessage) inMessage).getST_Passenger();
+          String log = ((LoggerMessage) inMessage).getLog();
+          synchronized (Logger_Class.class){
+              logger.setST_Passenger(id,ST_Passenger);
+              logger.log_write(log);
+          }
+        }else if(PIL_STATE.equals(type)){
             Pilot.State ST_Pilot = ((LoggerMessage) inMessage).getST_Pilot();
             synchronized (Logger_Class.class){
                 logger.setST_Pilot(ST_Pilot);
-                logger.log_write("Pilot is at transfer gate");
             }
-        }else if (PIL_INFORM_PLANE_RDY_BOARD.equals(type)) {//boarding started
+        } else if(PIL_STATE_LOG.equals(type) ) {
             Pilot.State ST_Pilot = ((LoggerMessage) inMessage).getST_Pilot();
             int FN = ((LoggerMessage) inMessage).getFN();
             String log = ((LoggerMessage) inMessage).getLog();
-            synchronized (Logger_Class.class){
-                logger.setST_Pilot(ST_Pilot);
-                logger.setFN(FN);
-                logger.board_start(log); //"\nFlight " + id_to_set + ": boarding started.\n"
-            }
-        } else if (PIL_WAIT_FOR_ALL_BOARDING.equals(type)){
-            Pilot.State ST_Pilot = ((LoggerMessage) inMessage).getST_Pilot();
-            synchronized (Logger_Class.class){
-                logger.setST_Pilot(ST_Pilot);
-                logger.log_write("Pilot is waiting for boarding");
-            }
-        } else if(PIL_FlY_TO_DEST.equals(type)){
-            Pilot.State ST_Pilot = ((LoggerMessage) inMessage).getST_Pilot();
-            synchronized (Logger_Class.class){
-                logger.setST_Pilot(ST_Pilot);
-                logger.log_write("Pilot is flying forward");
-            }
-        } else if (PIL_AN_ARRIVAL.equals(type)) {
-            Pilot.State ST_Pilot = ((LoggerMessage) inMessage).getST_Pilot();
-            int FN = ((LoggerMessage) inMessage).getFN();
-            String log = ((LoggerMessage) inMessage).getLog();
-            synchronized (Logger_Class.class) {
-                logger.setST_Pilot(ST_Pilot);
-                logger.setFN(FN);
-                logger.board_start(log); //"\nFlight " + id_to_set + ": arrived.\n"
-            }
-        } else if (PIL_FLY_TO_DEP.equals(type)){
-            Pilot.State ST_Pilot = ((LoggerMessage) inMessage).getST_Pilot();
-            int FN = ((LoggerMessage) inMessage).getFN();
-            String log = ((LoggerMessage) inMessage).getLog();
-            synchronized (Logger_Class.class) {
-                logger.setST_Pilot(ST_Pilot);
-                logger.setFN(FN);
-                logger.board_start(log); //"\nFlight " + id_to_set + ": returning.\n"
-            }
-        } else if (HOS_WAIT_NEXT_FLIGHT.equals(type)){
-            Hostess.State ST_Hostess = ((LoggerMessage) inMessage).getST_Hostess();
-            
-            synchronized (Logger_Class.class){
-                logger.setST_Hostess(ST_Hostess);
-                logger.log_write("Hostess is waiting for next flight");
-            }
-        }else if (HOS_WAIT_BOARDING.equals(type)){
-            Hostess.State ST_Hostess = ((LoggerMessage) inMessage).getST_Hostess();
-            synchronized (Logger_Class.class){
-                logger.setST_Hostess(ST_Hostess);
-                logger.log_write("Hostess is waiting for next passenger");
-            }
-        }else if (HOS_WAIT_FOR_PASSENGER.equals(type)){
-            Hostess.State ST_Hostess = ((LoggerMessage) inMessage).getST_Hostess();
-            synchronized (Logger_Class.class){
-                logger.setST_Hostess(ST_Hostess);
-                logger.log_write("Hostess is waiting for next passenger");
-            }
-        }else if (HOS_CHECK_DOCUMENTS.equals(type)){
-            Hostess.State ST_Hostess = ((LoggerMessage) inMessage).getST_Hostess();
-            synchronized (Logger_Class.class){
-                logger.setST_Hostess(ST_Hostess);
-                logger.log_write("Hostess is checking documents of passengers");
-            }
-        }else if (HOS_INFORM_PLANE_TAKEOFF.equals(type)){
-            Hostess.State ST_Hostess = ((LoggerMessage) inMessage).getST_Hostess();
-            synchronized (Logger_Class.class){
-                logger.setST_Hostess(ST_Hostess);
-                logger.log_write("Hostess is informing pilot that he can fly");
-            }
-        } else if (DEPARTED.equals(type)){
-            ArrayList<String> summ = ((LoggerMessage) inMessage).getSummary();
-
-            synchronized (Logger_Class.class){
-                for(int i = 0; i < summ.size(); i++){
-                    logger.departed(summ.get(i));
+            if (ST_Pilot.equals(Pilot.State.READY_FOR_BOARDING)){
+                synchronized (Logger_Class.class){
+                    logger.setST_Pilot(ST_Pilot);
+                    logger.board_start("\nFlight " + FN + ": boarding started.\n");
                 }
+            } else if (ST_Pilot.equals(Pilot.State.DEBOARDING)){
+                synchronized (Logger_Class.class){
+                    logger.setST_Pilot(ST_Pilot);
+                    logger.board_start("\nFlight " + FN + ": arrived.\n");
+                }
+            } else if (ST_Pilot.equals(Pilot.State.FLYING_BACK)){
+                synchronized (Logger_Class.class){
+                    logger.setST_Pilot(ST_Pilot);
+                    logger.board_start("\nFlight " + FN + ": returning.\n");
+                }
+            }else {
+                synchronized (Logger_Class.class){
+                    logger.setST_Pilot(ST_Pilot);
+                    logger.log_write(log);
+                }
+            }
+        }else if (HOS_STATE.equals(type)){
+            Hostess.State ST_Hostess = ((LoggerMessage) inMessage).getST_Hostess();
+            synchronized (Logger_Class.class){
+                logger.setST_Hostess(ST_Hostess);
+            }
+        } else if (HOS_STATE_LOG.equals(type)){
+            Hostess.State ST_Hostess = ((LoggerMessage) inMessage).getST_Hostess();
+            String log = ((LoggerMessage) inMessage).getLog();
+            synchronized (Logger_Class.class){
+                logger.setST_Hostess(ST_Hostess);
+                logger.log_write(log);
             }
         }else if (SHUT.equals(type)){
             ArrayList<String> summ = ((LoggerMessage) inMessage).getSummary();

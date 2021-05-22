@@ -56,13 +56,13 @@ public class Passenger extends Thread{
 
     private void enterQueue(){
         passenger_state = State.IN_QUEUE;
-        Logger_stub.getInstance().pass_state(passenger_state,id_passenger);
+        Logger_stub.getInstance().pass_state_log(passenger_state,id_passenger, "Passenger " + id_passenger + " is entering in queue");
         DepAirp_stub.getInstance().enterQueue(id_passenger);
     }
 
     private void waitInQueue(){
         passenger_state = State.IN_QUEUE;
-        Logger_stub.getInstance().pass_state(passenger_state,id_passenger);
+        Logger_stub.getInstance().pass_state_log(passenger_state,id_passenger, "Passenger " + id_passenger + " is in queue");
         DepAirp_stub.getInstance().waitInQueue(id_passenger);
     }
     private void showDocuments(){ DepAirp_stub.getInstance().showDocuments(id_passenger); }
@@ -71,7 +71,7 @@ public class Passenger extends Thread{
 
     private void waitForEndOfFlight(){
         passenger_state = State.IN_FLIGHT;
-        Logger_stub.getInstance().pass_state(passenger_state,id_passenger);
+        Logger_stub.getInstance().pass_state_log(passenger_state,id_passenger,"Passenger " + id_passenger + " is in flight");
         Plane_stub.getInstance().waitForEndOfFlight();
     }
 
@@ -79,7 +79,7 @@ public class Passenger extends Thread{
 
     private void death(){
         passenger_state = State.AT_DESTINATION;
-        Logger_stub.getInstance().pass_state(passenger_state,id_passenger);
+        Logger_stub.getInstance().pass_state_log(passenger_state,id_passenger,"Passenger " + id_passenger + " is at destination");
         DestAirp_stub.getInstance().Passenger_death(id_passenger);
     }
 

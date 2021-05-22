@@ -56,6 +56,7 @@ public class DepartAirport {
             current_capacity = 0;
             plane_rdy = true; 
             waitingPlane.signal();
+
             System.out.print("Plane is Ready \n");
         }catch(Exception e){
             System.out.println("Interrupter Exception Error - " + e);
@@ -163,7 +164,7 @@ public class DepartAirport {
         try{
             boardingComplete = true;
             waitingFly.signal();
-            Logger_stub.getInstance().departed(current_capacity);
+            //Logger_stub.getInstance().departed(current_capacity);
         }catch(Exception e){
             System.out.println("Interrupter Exception Error - " + e);
             e.printStackTrace();
@@ -195,7 +196,7 @@ public class DepartAirport {
         try{
             System.out.printf("passenger %d enters queue \n", person);
             queue.add(person);
-            Logger_stub.getInstance().arrQ("Q",queue);
+            //Logger_stub.getInstance().arrQ("Q",queue);
         }catch(Exception e){
             System.out.println("Interrupter Exception Error - " + e);
             e.printStackTrace();
@@ -228,7 +229,6 @@ public class DepartAirport {
             showing = true;
             waitingShow.signal();
             System.out.printf("passenger %d  show documents \n", person);
-            Logger_stub.getInstance().arrQ("Q",queue);
             //block state 2
             while(!block_state2){
                 waitingPassenger.await(); 

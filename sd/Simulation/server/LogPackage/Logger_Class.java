@@ -22,7 +22,7 @@ public class Logger_Class {
     //implements singleton for repository information about what happens in the simulation, gives output file
 
     private static String file_name; // name file
-    private final static String directory_file = "Simulation/server/LogPackage/"; // where output files is stored
+    private final static String directory_file = "./Simulation/server/LogPackage/"; // where output files is stored
     private final static String default_name = "Logger_"; //default name
     private final static String extension_file = ".txt"; //extension file
 
@@ -79,7 +79,6 @@ public class Logger_Class {
     public void init(){
         String file_name = createFile(); //creation of file
         add_struct(file_name, nPassenger);   //header file
-        
     }
 
     //header file
@@ -98,7 +97,7 @@ public class Logger_Class {
             for(int i = 0; i < n_passenger; i ++){
                 fileWriter.write(Passenger_state[0] + " ");
             }
-            fileWriter.write("0\t0\t0\n");
+            fileWriter.write("\t0\t0\t0\n");
             fileWriter.close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -157,6 +156,7 @@ public class Logger_Class {
 
     //when change main events
     public void log_write(String type){
+        System.out.println(type);
         try {
             fileWriter = new FileWriter(file_name, true);
             StringBuilder struct_string = new StringBuilder();
@@ -166,7 +166,8 @@ public class Logger_Class {
             for (int i = 0; i < nPassenger; i ++){
                 struct_string.append(Passenger_state[ST_Passenger[i].ordinal()]).append(" ");
             }
-            struct_string.append("\t").append(Q.size()).append("\t").append(IN_F.size()).append("\t").append(ATL.size()).append("\n");
+
+            //struct_string.append("\t").append(Q.size()).append("\t").append(IN_F.size()).append("\t").append(ATL.size()).append("\n");
 
             fileWriter.write(struct_string.toString());
             fileWriter.close();

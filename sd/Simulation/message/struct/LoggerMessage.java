@@ -16,27 +16,16 @@ public class LoggerMessage implements Serializable, Message{
         SHUT,
 
         //Pilot
-        PIL_INFORM_PLANE_RDY_BOARD,
-        PIL_WAIT_FOR_ALL_BOARDING,
-        PIL_PARK_AT_TRANSFER_GATE,
-        PIL_FlY_TO_DEST,
-        PIL_AN_ARRIVAL,
-        PIL_FLY_TO_DEP,
+        PIL_STATE,
+        PIL_STATE_LOG,
 
         //Hostess
-        HOS_CHECK_DOCUMENTS,
-        HOS_INFORM_PLANE_TAKEOFF,
-        HOS_WAIT_NEXT_FLIGHT,
-        HOS_WAIT_BOARDING,
-        HOS_WAIT_FOR_PASSENGER,
+        HOS_STATE,
+        HOS_STATE_LOG,
 
         //Passenger
         PASS_STATE,
-        PASS_GOING_TO_AIRPORT,
-        PASS_ENTER_QUEUE,
-        PASS_IN_FL,
-        PASS_WAIT_QUEUE,
-        PASS_LEAVE_PLANE,
+        PASS_STATE_LOG,
 
         DEPARTED,
         SUMMARY
@@ -55,89 +44,63 @@ public class LoggerMessage implements Serializable, Message{
     public ArrayList<Integer> ATL; // State of number of passengers that have already arrived at their destination
     private String log;
     public ArrayList<String> Summary = new ArrayList<>();
+    public int capacity;
 
     //constructor primary
     public LoggerMessage(LG_Message type) {this.type = type;}
 
-    //construct type id passenger
+    //state passenger
     public LoggerMessage(LG_Message type, Passenger.State st, int id){
         this(type);
         this.id = id;
         this.ST_Passenger = st;
     }
+    //log passenger
     public LoggerMessage(LG_Message type, Passenger.State st, int id, String x){
         this(type, st, id);
         this.log = x;
-          
-        
     }
 
     public LoggerMessage(LG_Message type, ArrayList<Integer> x, Passenger.State st, int id){
         this(type, st, id);
 
-        if(LG_Message.PASS_ENTER_QUEUE.equals(type))
-            this.Q = x;
-        else if(LG_Message.PASS_WAIT_QUEUE.equals(type))
-            this.IN_F = x;
-        else if (LG_Message.PASS_LEAVE_PLANE.equals(type))
-            this.ATL = x;
     }
 
-    //construct hostess
+    //state hostess
     public LoggerMessage(LG_Message type, Hostess.State ht){
         this(type);
         this.ST_Hostess = ht;
     }
 
+    public LoggerMessage(LG_Message type, Hostess.State ht,String x){
+        this(type, ht);
+        this.log = x;
+    }
+
     //inform plane take off
     public LoggerMessage(LG_Message type, Hostess.State ht, int cap){
         this(type, ht);
-        this.log = "\nFlight " + FN + " departed with " + cap + " passengers.\n";
+        this.capacity = cap;
     }
 
-    //construct pilot
+    //states pilot
     public LoggerMessage(LG_Message type, Pilot.State pl){
         this(type);
         this.ST_Pilot = pl;
     }
-    //pilot message log
+
+    //logger pilot
+    public LoggerMessage(LG_Message type, Pilot.State pl, String x){
+        this(type,pl);
+        this.log = x;
+    }
+
+    //pilot set fn
     public LoggerMessage(LG_Message type, Pilot.State pl, int fn){
         this(type,pl);
-        if (PIL_INFORM_PLANE_RDY_BOARD.equals(type))
-            this.log =  "\nFlight " + fn + ": boarding started.\n";
-        else if (PIL_AN_ARRIVAL.equals(type))
-            this.log = "\nFlight " + fn + ": arrived.\n";
-        else if(PIL_FLY_TO_DEP.equals(type))
-            this.log = "\nFlight " + fn + ": returning.\n";
+        this.FN = fn;
     }
 
-    // flight departed
-    public LoggerMessage(LG_Message type, Pilot.State pl, int fn, int total){
-        this(type, pl);
-        this.log = "\nFlight " + FN + " departed with " + total + " passengers.\n";
-    }
-
-    // create array Q, inf, atl
-    public LoggerMessage(String x, ArrayList<Integer> arrayList){
-        if (x.equals("Q"))
-            this.Q = arrayList;
-        else if (x.equals("IN_F"))
-            this.IN_F = arrayList;
-        else if (x.equals("ATL"))
-            this.ATL = arrayList;
-    }
-
-    //add Array Q, inf, at
-
-    public LoggerMessage(LG_Message type, int f){
-        this(type);
-        this.FN = f;
-    }
-
-    public LoggerMessage(LG_Message type, ArrayList<Integer> cap){
-        this.type = type;
-        for (Integer integer : cap) Summary.add("Flight " + FN + " departed with " + integer + " passengers.");
-    }
 
     public LG_Message getType() { return this.type; }
 

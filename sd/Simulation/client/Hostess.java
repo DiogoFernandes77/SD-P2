@@ -23,7 +23,7 @@ public class Hostess extends Thread{
     private boolean end_flag = false;
     public Hostess(){
         hostess_state = State.WAIT_FOR_NEXT_FLIGHT;
-        ;
+        Logger_stub.getInstance().hostess_state(hostess_state);
     }
 
     //implementation of the method run which establishes the thread operativeness
@@ -55,25 +55,25 @@ public class Hostess extends Thread{
 
     private void waitForNextFlight(){
         hostess_state = State.WAIT_FOR_NEXT_FLIGHT;
-        Logger_stub.getInstance().hostess_next_fl(hostess_state);
+        Logger_stub.getInstance().hostess_state_log(hostess_state, "Hostess is waiting for next flight");
         DepAirp_stub.getInstance().waitForNextFlight();
     }
 
     private void prepareForPassBoarding(){
         hostess_state = State.WAIT_FOR_PASSENGER;
-        Logger_stub.getInstance().hostess_wt_pass(hostess_state);
+        Logger_stub.getInstance().hostess_state_log(hostess_state, "Hostess is waiting for passenger");
         DepAirp_stub.getInstance().prepareForPassBoarding();
     }
 
     private void waitForNextPassenger(){
         hostess_state = State.WAIT_FOR_PASSENGER;
-        Logger_stub.getInstance().hostess_wt_pass(hostess_state);
+        Logger_stub.getInstance().hostess_state_log(hostess_state, "Hostess is waiting for passenger");
         DepAirp_stub.getInstance().waitForNextPassenger();
     }
 
     private void checkDocuments(){
         hostess_state = State.CHECK_PASSENGER;
-        Logger_stub.getInstance().hostess_chk(hostess_state);
+        Logger_stub.getInstance().hostess_state_log(hostess_state, "Hostess is checking documents of passengers");
         DepAirp_stub.getInstance().checkDocuments();
     }
 
@@ -83,7 +83,7 @@ public class Hostess extends Thread{
     
     private void informPlaneReadyToTakeOff(){
         hostess_state = State.READY_TO_FLY;
-        Logger_stub.getInstance().hostess_rdy_fly(hostess_state, getCurrent_capacity());
+        Logger_stub.getInstance().hostess_state_log(hostess_state, "Hostess tell pilot that he can fly");
         DepAirp_stub.getInstance().informPlaneReadyToTakeOff();
     }
     private int getPassenger_left(){ return DepAirp_stub.getInstance().getPassenger_left(); }

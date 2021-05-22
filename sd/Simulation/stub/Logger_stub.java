@@ -45,56 +45,33 @@ public class Logger_stub {
         }
     }
 
-    // create and add arrays
-    public void arr(String x, ArrayList<Integer> arrayList){ this.send(new LoggerMessage(x,arrayList)); }
-    public void arrQ(String x, Queue<Integer> que) {
-        ArrayList<Integer> q = new ArrayList<>(que);
-        this.send(new LoggerMessage(x,q));
-    }
-
-    public void departed(int cap){
-        ArrayList<Integer> summ = new ArrayList<>();
-        summ.add(cap);
-        this.send(new LoggerMessage(DEPARTED,summ));
-    }
 
     // Passenger methods
-    public void pass_state(Passenger.State st, int id){this.send(new LoggerMessage(PASS_STATE, st,id));}
+    public void pass_state(Passenger.State st, int id){
+        this.send(new LoggerMessage(PASS_STATE, st,id));
+    }
+    //Passenger log
     public void pass_state_log(Passenger.State st, int id, String x){
-        this.send(new LoggerMessage(PASS_STATE, st,id, x));
+        this.send(new LoggerMessage(PASS_STATE_LOG, st,id, x));
     }
-    /*//public void pass_air(Passenger.State st, int id){ this.send(new LoggerMessage(PASS_GOING_TO_AIRPORT, id, st));}
-    public void pass_enter(ArrayList<Integer> arrayList){ this.send(new LoggerMessage(PASS_ENTER_QUEUE, arrayList);}
-    public void pass_in_fl(Passenger.State st, int id, ArrayList<Integer> arrayList){ this.send(new LoggerMessage(PASS_IN_FL,arrayList, st, id));}
-    public void pass_wait(Passenger.State st, int id, ArrayList<Integer> arrayList){ this.send(new LoggerMessage(PASS_WAIT_QUEUE, arrayList, st, id));}
-    public void pass_leave(Passenger.State st,int id, ArrayList<Integer> arrayList){ this.send(new LoggerMessage(PASS_LEAVE_PLANE, arrayList, st, id));}
-*/
-    // Pilot methods
-    public void pilot_at_trans(Pilot.State p){
-        this.send(new LoggerMessage(PIL_PARK_AT_TRANSFER_GATE, p));
-        }
-    public void pilot_ready(Pilot.State p, int fn) { 
-        this.send(new LoggerMessage(PIL_INFORM_PLANE_RDY_BOARD, p, fn)); }
-    
-        public void pilot_fly_for(Pilot.State p, int fn, int total){ this.send(new LoggerMessage(PIL_FlY_TO_DEST, p, fn, total)); 
+
+    public void pil_state(Pilot.State p){
+        this.send(new LoggerMessage(PIL_STATE, p));
     }
-    public void pilot_wait(Pilot.State p) { this.send(new LoggerMessage(PIL_WAIT_FOR_ALL_BOARDING, p)); }
-    public void pilot_fly_bck(Pilot.State p, int fn) { this.send(new LoggerMessage(PIL_FLY_TO_DEP, p, fn)); }
-    public void pilot_deb(Pilot.State p, int fn){ this.send(new LoggerMessage(PIL_AN_ARRIVAL, p, fn)); }
+    public void pil_state_log(Pilot.State p, String x) {
+        this.send(new LoggerMessage(PIL_STATE_LOG, p, x));
+    }
+    public void pil_board_start(Pilot.State p, int fn){
+        this.send(new LoggerMessage(PIL_STATE_LOG,p,fn));
+    }
 
     // Hostess method
+    public void hostess_state(Hostess.State ht){
+        this.send(new LoggerMessage(HOS_STATE, ht));
+    }
 
-    public void hostess_next_fl(Hostess.State h){ 
-        this.send(new LoggerMessage(HOS_WAIT_NEXT_FLIGHT, h));
-    }
-    public void hostess_wt_pass(Hostess.State h){ 
-        this.send(new LoggerMessage(HOS_WAIT_FOR_PASSENGER, h));
-    }
-    public void hostess_chk(Hostess.State h){
-         this.send(new LoggerMessage(HOS_CHECK_DOCUMENTS, h));
-        }
-    public void hostess_rdy_fly(Hostess.State h, int cap){
-        this.send(new LoggerMessage(HOS_INFORM_PLANE_TAKEOFF, h, cap));
+    public void hostess_state_log(Hostess.State ht, String x){
+        this.send(new LoggerMessage(HOS_STATE_LOG, ht, x));
     }
 
     public void shutdown(){
