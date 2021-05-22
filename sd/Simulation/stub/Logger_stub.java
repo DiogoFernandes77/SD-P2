@@ -187,6 +187,54 @@ public class Logger_stub {
         }
     }
 
+    public void pass_enter_queue(Queue<Integer> arrayList){
+        ClientCom con = new ClientCom("localhost",4004);
+        LoggerMessage requestMessage, responseMessage;
+        ArrayList<Integer>list = new ArrayList<>(arrayList);
+        if (con.open()){
+            requestMessage = new LoggerMessage(PASS_IN_Q,list);
+            con.writeObject(requestMessage);
+            responseMessage = (LoggerMessage) con.readObject();
+            if (responseMessage.getType() != SUCCESS)
+            {
+                System.out.println("Error receiving message from Logger");
+            }
+            con.close();
+        }
+    }
+
+    public void pass_in_flight(ArrayList<Integer> arrayList){
+        ClientCom con = new ClientCom("localhost",4004);
+        LoggerMessage requestMessage, responseMessage;
+
+        if (con.open()){
+            requestMessage = new LoggerMessage(PASS_ENTER_PLANE,arrayList);
+            con.writeObject(requestMessage);
+            responseMessage = (LoggerMessage) con.readObject();
+            if (responseMessage.getType() != SUCCESS)
+            {
+                System.out.println("Error receiving message from Logger");
+            }
+            con.close();
+        }
+    }
+
+    public void pass_leave_plane(ArrayList<Integer> arrayList){
+        ClientCom con = new ClientCom("localhost",4004);
+        LoggerMessage requestMessage, responseMessage;
+
+        if (con.open()){
+            requestMessage = new LoggerMessage(PASS_ATL,arrayList);
+            con.writeObject(requestMessage);
+            responseMessage = (LoggerMessage) con.readObject();
+            if (responseMessage.getType() != SUCCESS)
+            {
+                System.out.println("Error receiving message from Logger");
+            }
+            con.close();
+        }
+    }
+
     public void shutdown(){
         ClientCom con = new ClientCom("localhost",4004);
         LoggerMessage requestMessage, responseMessage;

@@ -197,7 +197,8 @@ public class DepartAirport {
         try{
             System.out.printf("passenger %d enters queue \n", person);
             queue.add(person);
-            //Logger_stub.getInstance().arrQ("Q",queue);
+            Logger_stub.getInstance().pass_enter_queue(queue);
+
         }catch(Exception e){
             System.out.println("Interrupter Exception Error - " + e);
             e.printStackTrace();

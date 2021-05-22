@@ -26,9 +26,12 @@ public class LoggerMessage implements Serializable, Message{
         //Passenger
         PASS_STATE,
         PASS_STATE_LOG,
+        PASS_IN_Q_SET,
         PASS_IN_Q,
         PASS_ENTER_PLANE,
+        PASS_ENTER_PLANE_SET,
         PASS_ATL,
+        PASS_ATL_SET,
         PASS_CHECK,
 
         DEPARTED,
@@ -104,6 +107,8 @@ public class LoggerMessage implements Serializable, Message{
             this.IN_F = arrayList;
         else if (PASS_IN_Q.equals(type))
             this.Q = arrayList;
+        else if(PASS_ATL.equals(type))
+            this.ATL = arrayList;
     }
 
     //print passenger show

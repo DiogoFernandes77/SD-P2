@@ -48,11 +48,11 @@ public class Logger_Class {
     public Logger_Class(int nPassenger) {
         this.nPassenger = nPassenger;
         ST_Passenger = new Passenger.State[nPassenger];
-        ST_Pilot = Pilot.State.AT_TRANSFER_GATE;
+        ST_Pilot =  Pilot.State.AT_TRANSFER_GATE;
         ST_Hostess = Hostess.State.WAIT_FOR_NEXT_FLIGHT;
         Q = new ArrayList<Integer>();
         IN_F = new ArrayList<Integer>();
-        ATL = new ArrayList<Integer>();
+        //ATL = new ArrayList<Integer>();
 
         this.init();
     }
@@ -89,7 +89,7 @@ public class Logger_Class {
                     fileWriter.write(" P" + i + " ");
             }
             fileWriter.write("\tInQ InF PTAL\n");
-            fileWriter.write(Pilot_state[0] + " " + Hostess_state[0] + " ");
+            fileWriter.write( Pilot_state[ST_Pilot.ordinal()]+ " " + Hostess_state[ST_Hostess.ordinal()] + " ");
             for(int i = 0; i < n_passenger; i ++){
                 fileWriter.write(Passenger_state[0] + " ");
             }

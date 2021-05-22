@@ -120,7 +120,7 @@ public class Plane  {
             enter = true;
             hostess.signal();
             System.out.printf("passenger %d boarding plane \n", person);
-            //Logger_stub.getInstance().arr("IN_F",plane);
+            Logger_stub.getInstance().pass_in_flight(plane);
          }catch(Exception e){
             System.out.println("Interrupter Exception Error - " + e);
             e.printStackTrace();
@@ -149,7 +149,7 @@ public class Plane  {
             plane.remove(Integer.valueOf(person));
             cd_deboarding.signal();
             System.out.printf("Passenger %d leaving the plane \n", person);
-           // Logger_stub.getInstance().arr("IN_F",plane);
+            Logger_stub.getInstance().pass_in_flight(plane);
         }catch(Exception e){
             System.out.println("Interrupter Exception Error - " + e);
             e.printStackTrace();
