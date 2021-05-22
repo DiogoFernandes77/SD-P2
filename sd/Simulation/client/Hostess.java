@@ -49,7 +49,6 @@ public class Hostess extends Thread{
             System.out.print(" BOARDING COMPLETE \n");
             informPlaneReadyToTakeOff();
         }while(stillPassenger());
-        
         System.out.println("HOSTESS RUNS ENDED \n");
     }
 

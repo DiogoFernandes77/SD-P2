@@ -42,7 +42,10 @@ public class Logger_stub {
             requestMessage = new LoggerMessage(PASS_STATE, st,id);
             con.writeObject(requestMessage);
             responseMessage = (LoggerMessage) con.readObject();
-            System.out.println("Error receiving message from Logger");
+            if (responseMessage.getType() != SUCCESS)
+            {
+                System.out.println("Error receiving message from Logger");
+            }
             con.close();
         }
     }
@@ -56,10 +59,29 @@ public class Logger_stub {
             requestMessage = new LoggerMessage(PASS_STATE_LOG, st,id, x);
             con.writeObject(requestMessage);
             responseMessage = (LoggerMessage) con.readObject();
-            System.out.println("Error receiving message from Logger");
+            if (responseMessage.getType() != SUCCESS)
+            {
+                System.out.println("Error receiving message from Logger");
+            }
             con.close();
         }
     }
+
+    public void pass_check(String x){
+        ClientCom con = new ClientCom("localhost",4004);
+        LoggerMessage requestMessage, responseMessage;
+
+        if (con.open()){
+            requestMessage = new LoggerMessage(PASS_CHECK,x);
+            con.writeObject(requestMessage);
+            responseMessage = (LoggerMessage) con.readObject();
+            if (responseMessage.getType() != SUCCESS)
+            {
+                System.out.println("Error receiving message from Logger");
+            }
+            con.close();
+        }
+    } //flight x: passenger y checked.
 
     public void pil_state(Pilot.State p){
         ClientCom con = new ClientCom("localhost",4004);
@@ -69,21 +91,17 @@ public class Logger_stub {
             requestMessage = new LoggerMessage(PIL_STATE, p);
             con.writeObject(requestMessage);
             responseMessage = (LoggerMessage) con.readObject();
-            
-            
-            
+
             if (responseMessage.getType() != SUCCESS)
             {
                 System.out.println("Error receiving message from Logger");
             }
-            
-            
-            
+
             con.close();
         }
     
-    
     }
+
     public void pil_state_log(Pilot.State p, String x) {
         ClientCom con = new ClientCom("localhost",4004);
         LoggerMessage requestMessage, responseMessage;
@@ -102,6 +120,7 @@ public class Logger_stub {
             con.close();
         }
     }
+
     public void pil_board_start(Pilot.State p, int fn){
         ClientCom con = new ClientCom("localhost",4004);
         LoggerMessage requestMessage, responseMessage;
@@ -115,6 +134,22 @@ public class Logger_stub {
                 System.out.println("Error receiving message from Logger");
             }
             
+            con.close();
+        }
+    }
+
+    public void departed(int capacity){
+        ClientCom con = new ClientCom("localhost",4004);
+        LoggerMessage requestMessage, responseMessage;
+
+        if (con.open()){
+            requestMessage = new LoggerMessage(DEPARTED, capacity);
+            con.writeObject(requestMessage);
+            responseMessage = (LoggerMessage) con.readObject();
+            if (responseMessage.getType() != SUCCESS)
+            {
+                System.out.println("Error receiving message from Logger");
+            }
             con.close();
         }
     }
@@ -157,7 +192,7 @@ public class Logger_stub {
         LoggerMessage requestMessage, responseMessage;
 
         if (con.open()){
-            requestMessage = new LoggerMessage(LoggerMessage.LG_Message.SHUT);
+            requestMessage = new LoggerMessage(SHUT);
             con.writeObject(requestMessage);
             responseMessage = (LoggerMessage) con.readObject();
             if (responseMessage.getType() != SUCCESS)

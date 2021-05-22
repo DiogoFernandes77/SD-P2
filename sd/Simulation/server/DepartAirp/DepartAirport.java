@@ -132,6 +132,7 @@ public class DepartAirport {
             waitingPassenger.signal();
             current_capacity++;
             passenger_left--;
+
         }catch(Exception e){
             System.out.println("Interrupter Exception Error - " + e);
             e.printStackTrace();
@@ -164,7 +165,7 @@ public class DepartAirport {
         try{
             boardingComplete = true;
             waitingFly.signal();
-            //Logger_stub.getInstance().departed(current_capacity);
+            Logger_stub.getInstance().departed(current_capacity);
         }catch(Exception e){
             System.out.println("Interrupter Exception Error - " + e);
             e.printStackTrace();
@@ -211,6 +212,7 @@ public class DepartAirport {
         try{
             waitingPassenger.signal();
             System.out.printf("passenger %d wait for check \n", person);
+
             while(!(rdyCheck && (queue.peek() == person))){// each thread see if hostess is ready and if is their turn
                 waitingCheck.await();
             }
@@ -230,6 +232,7 @@ public class DepartAirport {
             waitingShow.signal();
             System.out.printf("passenger %d  show documents \n", person);
             //block state 2
+            Logger_stub.getInstance().pass_check(": passenger " + person+ " checked.\n");
             while(!block_state2){
                 waitingPassenger.await(); 
             }

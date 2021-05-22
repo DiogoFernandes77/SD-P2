@@ -42,7 +42,8 @@ public class Pilot extends Thread{
             flyToDeparturePoint();
             parkAtTransferGate();
         }while(stillPassenger());
-        
+        Logger_stub.getInstance().shutdown();
+
         System.out.println("PILOT RUNS ENDED \n");
     }
 

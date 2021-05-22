@@ -26,6 +26,10 @@ public class LoggerMessage implements Serializable, Message{
         //Passenger
         PASS_STATE,
         PASS_STATE_LOG,
+        PASS_IN_Q,
+        PASS_ENTER_PLANE,
+        PASS_ATL,
+        PASS_CHECK,
 
         DEPARTED,
         SUMMARY
@@ -68,16 +72,12 @@ public class LoggerMessage implements Serializable, Message{
         this.ST_Hostess = ht;
     }
 
+    //state log hostess
     public LoggerMessage(LG_Message type, Hostess.State ht,String x){
         this(type, ht);
         this.log = x;
     }
 
-    //inform plane take off
-    public LoggerMessage(LG_Message type, Hostess.State ht, int cap){
-        this(type, ht);
-        this.capacity = cap;
-    }
 
     //states pilot
     public LoggerMessage(LG_Message type, Pilot.State pl){
@@ -97,6 +97,26 @@ public class LoggerMessage implements Serializable, Message{
         this.FN = fn;
     }
 
+    //arrayList
+    public LoggerMessage(LG_Message type, ArrayList<Integer> arrayList){
+        this(type);
+        if (PASS_ENTER_PLANE.equals(type))
+            this.IN_F = arrayList;
+        else if (PASS_IN_Q.equals(type))
+            this.Q = arrayList;
+    }
+
+    //print passenger show
+    public LoggerMessage(LG_Message type, String x){
+        this(type);
+        this.log = x;
+    }
+
+    //departed
+    public LoggerMessage(LG_Message type, int capacity){
+        this(type);
+        this.capacity = capacity;
+    }
 
     public LG_Message getType() { return this.type; }
 
@@ -112,6 +132,10 @@ public class LoggerMessage implements Serializable, Message{
 
     public int getId() {
         return id;
+    }
+
+    public int getCapacity() {
+        return capacity;
     }
 
     public ArrayList<String> getSummary() {

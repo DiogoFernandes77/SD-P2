@@ -7,16 +7,10 @@ package Simulation.server.LogPackage;
 
 import Simulation.client.Hostess;
 import Simulation.client.Passenger;
-import Simulation.client.PassengerClient;
 import Simulation.client.Pilot;
-import Simulation.message.struct.LoggerMessage;
-import Simulation.server.DepartAirp.DepAirp_server;
-import Simulation.server.DepartAirp.DepartAirport;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Queue;
 
 public class Logger_Class {
     //implements singleton for repository information about what happens in the simulation, gives output file
@@ -121,7 +115,7 @@ public class Logger_Class {
     public void pass_check(String text){
         try {
             fileWriter = new FileWriter(file_name, true);
-            fileWriter.write("\nFlight " + FN + text);
+            fileWriter.write(text);
             fileWriter.flush();
             fileWriter.close();
         } catch (IOException e) {
@@ -133,6 +127,7 @@ public class Logger_Class {
         try {
             fileWriter = new FileWriter(file_name, true);
             fileWriter.write(total_transported);
+            Summary.add(total_transported);
             fileWriter.flush();
             fileWriter.close();
         } catch (IOException e) {
@@ -141,11 +136,11 @@ public class Logger_Class {
     }
 
     // summary of flights
-    public void summary(ArrayList<String> summ){
+    public void summary(){
         try {
             fileWriter = new FileWriter(file_name, true);
             fileWriter.write("\nAirlift sum up:\n");
-            for (String s : summ)
+            for (String s : Summary)
                 fileWriter.write(s + "\n");
             fileWriter.flush();
             fileWriter.close();
@@ -156,15 +151,12 @@ public class Logger_Class {
 
     //when change main events
     public void log_write(String type){
-        
         try {
-            fileWriter = new FileWriter(file_name, true);
             StringBuilder struct_string = new StringBuilder();
             struct_string.append(Pilot_state[ST_Pilot.ordinal()]).append(" ");
             struct_string.append(Hostess_state[ST_Hostess.ordinal()]).append(" ");
             System.out.println(struct_string.toString());
             for (int i = 0; i < nPassenger; i ++){
-                
                 try{
                     struct_string.append(Passenger_state[ST_Passenger[i].ordinal()]).append(" ");
                 }catch(NullPointerException e){
@@ -173,11 +165,12 @@ public class Logger_Class {
                 
             }
 
-            //struct_string.append("\t").append(Q.size()).append("\t").append(IN_F.size()).append("\t").append(ATL.size()).append("\n");
-            
+            fileWriter = new FileWriter(file_name, true);
+
+            struct_string.append("\t").append(Q.size()).append("\t").append(IN_F.size()).append("\t").append(ATL.size()).append("\n");
             fileWriter.write(struct_string.toString());
-            
             fileWriter.close();
+
         } catch (IOException e){
             System.out.print(e);
             e.printStackTrace();
