@@ -174,15 +174,15 @@ public class Logger_Class {
             }
 
             //struct_string.append("\t").append(Q.size()).append("\t").append(IN_F.size()).append("\t").append(ATL.size()).append("\n");
-            System.out.println("pre-write");
+            
             fileWriter.write(struct_string.toString());
-            System.out.println("pos-write");
+            
             fileWriter.close();
         } catch (IOException e){
             System.out.print(e);
             e.printStackTrace();
         }
-        System.out.println("loggersaida");
+        
     }
 
     // -------------------------- SETTERS ------------------------- //
