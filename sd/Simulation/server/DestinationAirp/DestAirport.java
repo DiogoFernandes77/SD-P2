@@ -13,7 +13,7 @@ public class DestAirport{
     private final ArrayList<Integer> passenger_arrived;
     public DestAirport(){
         passenger_arrived = new ArrayList<Integer>();
-        Logger_stub.getInstance().arr("ATL",passenger_arrived);
+        
     }
 
     //---------------------------------------------------/Passenger methods/-----------------------------------------------------//

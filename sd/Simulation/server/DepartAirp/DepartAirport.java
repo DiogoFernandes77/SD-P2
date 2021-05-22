@@ -44,7 +44,7 @@ public class DepartAirport {
         this.boardMin = boardMin;
         this.boardMax = boardMax;
         passenger_left = nPassenger;
-        Logger_stub.getInstance().arrQ("Q",queue);
+        
     }
 
     //---------------------------------------------------/Pilot methods/-----------------------------------------------------//

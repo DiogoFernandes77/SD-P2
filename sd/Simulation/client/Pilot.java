@@ -25,7 +25,7 @@ public class Pilot extends Thread{
 
     public Pilot(){
         pilot_state = State.AT_TRANSFER_GATE;
-        Logger_stub.getInstance().pilot_at_trans(pilot_state);
+        
     }
 
     //implementation of the method run which establishes the thread operativeness

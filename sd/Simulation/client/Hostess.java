@@ -23,7 +23,7 @@ public class Hostess extends Thread{
     private boolean end_flag = false;
     public Hostess(){
         hostess_state = State.WAIT_FOR_NEXT_FLIGHT;
-        Logger_stub.getInstance().hostess_next_fl(hostess_state);
+        ;
     }
 
     //implementation of the method run which establishes the thread operativeness

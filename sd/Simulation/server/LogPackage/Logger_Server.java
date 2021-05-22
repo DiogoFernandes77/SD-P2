@@ -51,6 +51,7 @@ public class Logger_Server {
 
         waitConnection = true;
         while (waitConnection) {
+            
             try {
                 sconi = scon.accept();
                 proxy = new Proxy(sconi, logger_int);

@@ -23,8 +23,7 @@ public class Logger_Interface implements Serverable {
     public Message processAndReply(Message inMessage) {
         Message response = null;
         Enum type = inMessage.getType();
-        System.out.println("message type:");
-        System.out.println(inMessage.getType());
+       
         if(PASS_STATE.equals(type)){
             int id = ((LoggerMessage) inMessage).getId();
             Passenger.State ST_Passenger = ((LoggerMessage) inMessage).getST_Passenger();
@@ -51,7 +50,7 @@ public class Logger_Interface implements Serverable {
             Pilot.State ST_Pilot = ((LoggerMessage) inMessage).getST_Pilot();
             synchronized (Logger_Class.class){
                 logger.setST_Pilot(ST_Pilot);
-                //logger.log_write("Pilot is at transfer gate");
+                logger.log_write("Pilot is at transfer gate");
             }
         }else if (PIL_INFORM_PLANE_RDY_BOARD.equals(type)) {//boarding started
             Pilot.State ST_Pilot = ((LoggerMessage) inMessage).getST_Pilot();
@@ -66,13 +65,13 @@ public class Logger_Interface implements Serverable {
             Pilot.State ST_Pilot = ((LoggerMessage) inMessage).getST_Pilot();
             synchronized (Logger_Class.class){
                 logger.setST_Pilot(ST_Pilot);
-                //logger.log_write("Pilot is waiting for boarding");
+                logger.log_write("Pilot is waiting for boarding");
             }
         } else if(PIL_FlY_TO_DEST.equals(type)){
             Pilot.State ST_Pilot = ((LoggerMessage) inMessage).getST_Pilot();
             synchronized (Logger_Class.class){
                 logger.setST_Pilot(ST_Pilot);
-                //logger.log_write("Pilot is flying forward");
+                logger.log_write("Pilot is flying forward");
             }
         } else if (PIL_AN_ARRIVAL.equals(type)) {
             Pilot.State ST_Pilot = ((LoggerMessage) inMessage).getST_Pilot();
@@ -94,33 +93,34 @@ public class Logger_Interface implements Serverable {
             }
         } else if (HOS_WAIT_NEXT_FLIGHT.equals(type)){
             Hostess.State ST_Hostess = ((LoggerMessage) inMessage).getST_Hostess();
+            
             synchronized (Logger_Class.class){
                 logger.setST_Hostess(ST_Hostess);
-                //logger.log_write("Hostess is waiting for next flight");
+                logger.log_write("Hostess is waiting for next flight");
             }
         }else if (HOS_WAIT_BOARDING.equals(type)){
             Hostess.State ST_Hostess = ((LoggerMessage) inMessage).getST_Hostess();
             synchronized (Logger_Class.class){
                 logger.setST_Hostess(ST_Hostess);
-                //logger.log_write("Hostess is waiting for next passenger");
+                logger.log_write("Hostess is waiting for next passenger");
             }
         }else if (HOS_WAIT_FOR_PASSENGER.equals(type)){
             Hostess.State ST_Hostess = ((LoggerMessage) inMessage).getST_Hostess();
             synchronized (Logger_Class.class){
                 logger.setST_Hostess(ST_Hostess);
-                //logger.log_write("Hostess is waiting for next passenger");
+                logger.log_write("Hostess is waiting for next passenger");
             }
         }else if (HOS_CHECK_DOCUMENTS.equals(type)){
             Hostess.State ST_Hostess = ((LoggerMessage) inMessage).getST_Hostess();
             synchronized (Logger_Class.class){
                 logger.setST_Hostess(ST_Hostess);
-                //logger.log_write("Hostess is checking documents of passengers");
+                logger.log_write("Hostess is checking documents of passengers");
             }
         }else if (HOS_INFORM_PLANE_TAKEOFF.equals(type)){
             Hostess.State ST_Hostess = ((LoggerMessage) inMessage).getST_Hostess();
             synchronized (Logger_Class.class){
                 logger.setST_Hostess(ST_Hostess);
-                //logger.log_write("Hostess is informing pilot that he can fly");
+                logger.log_write("Hostess is informing pilot that he can fly");
             }
         } else if (DEPARTED.equals(type)){
             ArrayList<String> summ = ((LoggerMessage) inMessage).getSummary();

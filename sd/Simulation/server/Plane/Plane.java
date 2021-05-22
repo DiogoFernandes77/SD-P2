@@ -34,7 +34,7 @@ public class Plane  {
         flying = lock.newCondition();
         hostess = lock.newCondition();
         cd_deboarding = lock.newCondition();
-        Logger_stub.getInstance().arr("IN_F",plane);
+        
     }
 
 

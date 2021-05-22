@@ -55,6 +55,9 @@ public class Logger_Class {
         ST_Passenger = new Passenger.State[nPassenger];
         ST_Pilot = Pilot.State.AT_TRANSFER_GATE;
         ST_Hostess = Hostess.State.WAIT_FOR_NEXT_FLIGHT;
+        Q = new ArrayList<Integer>();
+        IN_F = new ArrayList<Integer>();
+        ATL = new ArrayList<Integer>();
         this.init();
     }
 

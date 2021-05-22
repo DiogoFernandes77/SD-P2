@@ -60,6 +60,9 @@ public class Logger_stub {
 
     // Passenger methods
     public void pass_state(Passenger.State st, int id){this.send(new LoggerMessage(PASS_STATE, st,id));}
+    public void pass_state_log(Passenger.State st, int id, String x){
+        this.send(new LoggerMessage(PASS_STATE, st,id, x));
+    }
     /*//public void pass_air(Passenger.State st, int id){ this.send(new LoggerMessage(PASS_GOING_TO_AIRPORT, id, st));}
     public void pass_enter(ArrayList<Integer> arrayList){ this.send(new LoggerMessage(PASS_ENTER_QUEUE, arrayList);}
     public void pass_in_fl(Passenger.State st, int id, ArrayList<Integer> arrayList){ this.send(new LoggerMessage(PASS_IN_FL,arrayList, st, id));}
