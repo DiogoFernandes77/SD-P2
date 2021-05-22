@@ -10,18 +10,18 @@ WTFB WTPS INQE 	0	0	0
 WTFB WTPS INQE 	0	0	0
 WTFB CKPS INQE 	0	0	0
 
-Flight 0: passenger 0 checked.
+Flight 1: passenger 0 checked.
 WTFB RDTF INQE 	0	0	0
 WTFB RDTF INFL 	0	0	0
 
-Flight 0 departed with 1 passengers.
+Flight 1 departed with 1 passengers.
 FLFW RDTF INFL 	0	0	0
 FLFW WTFL INFL 	0	0	0
 
 Flight 1: arrived.
-DRPP WTFL ATDS 	0	0	0
 
 Flight 1: returning.
+FLBK WTFL ATDS 	0	0	0
 ATRG WTFL ATDS 	0	0	0
 
 Flight 2: boarding started.
@@ -32,23 +32,21 @@ WTFB WTPS ATDS INQE 	0	0	0
 WTFB WTPS ATDS INQE 	0	0	0
 WTFB CKPS ATDS INQE 	0	0	0
 
-Flight 0: passenger 1 checked.
+Flight 2: passenger 1 checked.
 WTFB CKPS ATDS INFL 	0	0	0
 WTFB RDTF ATDS INFL 	0	0	0
 
-Flight 0 departed with 1 passengers.
+Flight 2 departed with 1 passengers.
 FLFW RDTF ATDS INFL 	0	0	0
 
 Flight 2: arrived.
+DRPP RDTF ATDS ATDS 	0	0	0
 
 Flight 2: returning.
-FLBK RDTF ATDS ATDS 	0	0	0
 ATRG RDTF ATDS ATDS 	0	0	0
 
 Airlift sum up:
+Flight 1 departed with 1 passengers.
 
-Flight 0 departed with 1 passengers.
-
-
-Flight 0 departed with 1 passengers.
+Flight 2 departed with 1 passengers.
 

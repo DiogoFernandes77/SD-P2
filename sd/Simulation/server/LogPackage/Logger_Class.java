@@ -43,6 +43,7 @@ public class Logger_Class {
 
     //passenger variables abbreviate
     private String[] Passenger_state = new String[]{"GTAP", "INQE", "INFL", "ATDS"};
+    StringBuilder struct_string;
 
     public Logger_Class(int nPassenger) {
         this.nPassenger = nPassenger;
@@ -52,6 +53,7 @@ public class Logger_Class {
         Q = new ArrayList<Integer>();
         IN_F = new ArrayList<Integer>();
         ATL = new ArrayList<Integer>();
+
         this.init();
     }
 
@@ -115,7 +117,7 @@ public class Logger_Class {
     public void pass_check(String text){
         try {
             fileWriter = new FileWriter(file_name, true);
-            fileWriter.write(text);
+            fileWriter.write("\nFlight " + FN + text);
             fileWriter.flush();
             fileWriter.close();
         } catch (IOException e) {
@@ -123,11 +125,11 @@ public class Logger_Class {
         }
     }
 
-    public void departed(String total_transported){
+    public void departed(int capacity){
         try {
             fileWriter = new FileWriter(file_name, true);
-            fileWriter.write(total_transported);
-            Summary.add(total_transported);
+            fileWriter.write("\nFlight " + FN + " departed with " + capacity + " passengers.\n");
+            Summary.add("Flight " + FN + " departed with " + capacity + " passengers.\n");
             fileWriter.flush();
             fileWriter.close();
         } catch (IOException e) {
@@ -151,8 +153,10 @@ public class Logger_Class {
 
     //when change main events
     public void log_write(String type){
+        System.out.println(type);
         try {
-            StringBuilder struct_string = new StringBuilder();
+            fileWriter = new FileWriter(file_name, true);
+            struct_string = new StringBuilder();
             struct_string.append(Pilot_state[ST_Pilot.ordinal()]).append(" ");
             struct_string.append(Hostess_state[ST_Hostess.ordinal()]).append(" ");
             System.out.println(struct_string.toString());
@@ -160,12 +164,9 @@ public class Logger_Class {
                 try{
                     struct_string.append(Passenger_state[ST_Passenger[i].ordinal()]).append(" ");
                 }catch(NullPointerException e){
-                    struct_string.append("");
+                    //struct_string.append("");
                 }
-                
             }
-
-            fileWriter = new FileWriter(file_name, true);
 
             struct_string.append("\t").append(Q.size()).append("\t").append(IN_F.size()).append("\t").append(ATL.size()).append("\n");
             fileWriter.write(struct_string.toString());
