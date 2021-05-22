@@ -156,7 +156,7 @@ public class Logger_Class {
 
     //when change main events
     public void log_write(String type){
-        System.out.println(type);
+        
         try {
             fileWriter = new FileWriter(file_name, true);
             StringBuilder struct_string = new StringBuilder();
@@ -164,7 +164,7 @@ public class Logger_Class {
             struct_string.append(Hostess_state[ST_Hostess.ordinal()]).append(" ");
             System.out.println(struct_string.toString());
             for (int i = 0; i < nPassenger; i ++){
-                System.out.println("for-write");
+                
                 try{
                     struct_string.append(Passenger_state[ST_Passenger[i].ordinal()]).append(" ");
                 }catch(NullPointerException e){
@@ -196,7 +196,7 @@ public class Logger_Class {
     }
 
     public void setST_Pilot(Pilot.State ST_Pilot) { 
-        System.out.println("set");
+        
         this.ST_Pilot = ST_Pilot; }
 
     public void setST_Hostess(Hostess.State st) { this.ST_Hostess = st; }
