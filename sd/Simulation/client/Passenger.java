@@ -5,10 +5,9 @@
 
 package Simulation.client;
 
-import java.util.ArrayList;
 import java.util.Random;
 
-//import Simulation.Log_file.Logger_Class;
+import Simulation.stub.Logger_stub;
 import Simulation.stub.Plane_stub;
 import Simulation.stub.DepAirp_stub;
 import Simulation.stub.DestAirp_stub;
@@ -28,9 +27,7 @@ public class Passenger extends Thread{
     public Passenger(int id){
         passenger_state = State.GOING_TO_AIRPORT;
         id_passenger = id;
-        // synchronized (Logger_Class.class) {
-        //     Logger_Class.getInstance().setST_Passenger(id_passenger, passenger_state);
-        // }
+        Logger_stub.getInstance().pass_state(passenger_state,id_passenger);
     }
 
     //implementation of the method run which establishes the thread operativeness
@@ -59,19 +56,13 @@ public class Passenger extends Thread{
 
     private void enterQueue(){
         passenger_state = State.IN_QUEUE;
-        // synchronized (Logger_Class.class) {
-        //     Logger_Class.getInstance().setST_Passenger(id_passenger, passenger_state);
-        //     Logger_Class.getInstance().log_write("Passenger " + id_passenger + " is entering in queue");
-        // }
+        Logger_stub.getInstance().pass_state(passenger_state,id_passenger);
         DepAirp_stub.getInstance().enterQueue(id_passenger);
     }
 
     private void waitInQueue(){
         passenger_state = State.IN_QUEUE;
-        // synchronized (Logger_Class.class) {
-        //     Logger_Class.getInstance().setST_Passenger(id_passenger, passenger_state);
-        //     Logger_Class.getInstance().log_write("Passenger " + id_passenger + " is in queue");
-        // }
+        Logger_stub.getInstance().pass_state(passenger_state,id_passenger);
         DepAirp_stub.getInstance().waitInQueue(id_passenger);
     }
     private void showDocuments(){ DepAirp_stub.getInstance().showDocuments(id_passenger); }
@@ -80,10 +71,7 @@ public class Passenger extends Thread{
 
     private void waitForEndOfFlight(){
         passenger_state = State.IN_FLIGHT;
-        // synchronized (Logger_Class.class) {
-        //     Logger_Class.getInstance().setST_Passenger(id_passenger, passenger_state);
-        //     Logger_Class.getInstance().log_write("Passenger " + id_passenger + " is in flight");
-        // }
+        Logger_stub.getInstance().pass_state(passenger_state,id_passenger);
         Plane_stub.getInstance().waitForEndOfFlight();
     }
 
@@ -91,12 +79,7 @@ public class Passenger extends Thread{
 
     private void death(){
         passenger_state = State.AT_DESTINATION;
-
-        // synchronized (Logger_Class.class) {
-        //     Logger_Class.getInstance().setST_Passenger(id_passenger, passenger_state);
-        //     Logger_Class.getInstance().log_write("Passenger " + id_passenger + " is at destination");
-        // }
-        
+        Logger_stub.getInstance().pass_state(passenger_state,id_passenger);
         DestAirp_stub.getInstance().Passenger_death(id_passenger);
     }
 

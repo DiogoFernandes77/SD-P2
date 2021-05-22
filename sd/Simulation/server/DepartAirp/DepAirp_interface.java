@@ -7,13 +7,9 @@ import Simulation.server.Serverable;
 
 import static Simulation.message.struct.DepartureAirpMessage.DpAirpMessage.*;
 public class DepAirp_interface implements Serverable{
-
     private DepartAirport depAirp = null;
 
-    public DepAirp_interface(DepartAirport depAirp){
-        this.depAirp = depAirp;
-
-    }
+    public DepAirp_interface(DepartAirport depAirp){ this.depAirp = depAirp; }
 
     @Override
     public Message processAndReply(Message requestMessage){
@@ -67,53 +63,32 @@ public class DepAirp_interface implements Serverable{
             int id = ((DepartureAirpMessage) requestMessage).getPerson_id();
             depAirp.showDocuments(id);
             response = new DepartureAirpMessage(SUCCESS);
-
         }
         else if(GET_CURRENT_CAPACITY.equals(requestType)){
-            
             int current_capacity = depAirp.getCurrent_capacity();
             response = new DepartureAirpMessage(SUCCESS,current_capacity);
-            
         }
         else if(GET_BOARD_MIN.equals(requestType)){
-            
             int board_min = depAirp.getBoardingMin();
             response = new DepartureAirpMessage(SUCCESS,board_min);
-            
         }
         else if(GET_BOARD_MAX.equals(requestType)){
-            
             int board_max = depAirp.getBoardingMax();
             response = new DepartureAirpMessage(SUCCESS,board_max);
-            
         }
         else if(GET_IS_QUEUE_EMPTY.equals(requestType)){
-            
             boolean queueEmpty = depAirp.getIsQueueEmpty();
             response = new DepartureAirpMessage(SUCCESS,queueEmpty);
-            
         }
         else if(STILL_PASSENGER.equals(requestType)){
-            
             boolean passengerLeft = depAirp.stillPassenger();
             response = new DepartureAirpMessage(SUCCESS,passengerLeft);
             
         }
         else if(GET_PASSENGER_LEFT.equals(requestType)){
-            
             int passengerLeft = depAirp.getPassenger_left();
             response = new DepartureAirpMessage(SUCCESS,passengerLeft);
-            
         }
-        
-        
-
-
-
     return response;
-
     }
-
-
-
 }

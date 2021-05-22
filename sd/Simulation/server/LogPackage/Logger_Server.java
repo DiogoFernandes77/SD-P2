@@ -1,7 +1,6 @@
 package Simulation.server.LogPackage;
 // initiate Logger server
-import Simulation.server.LogPackage.Logger_Class;
-import Simulation.server.LogPackage.Logger_Interface;
+
 import Simulation.server.ServerCom;
 import Simulation.server.Proxy;
 import java.net.SocketTimeoutException;

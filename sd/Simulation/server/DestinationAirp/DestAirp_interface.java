@@ -9,9 +9,7 @@ import Simulation.server.Serverable;
 
 import static Simulation.message.struct.DestinationAirpMessage.DstAirpMessage.*;
 
-
 public class DestAirp_interface implements Serverable{
-
     private DestAirport dest_airp = null;
 
     public DestAirp_interface(DestAirport dest_airp){
@@ -23,23 +21,12 @@ public class DestAirp_interface implements Serverable{
         Message response = null;
         Enum requestType = requestMessage.getType();
 
-        if(PASS_DEATH.equals(requestType)){
+        if (PASS_DEATH.equals(requestType)) {
             int id = ((DestinationAirpMessage) requestMessage).getId();
             dest_airp.Passenger_death(id);
             response = new DestinationAirpMessage(SUCCESS);
         }
 
-
         return response;
     }
-
-    
-
-
-
-
-
-
-
-
 }

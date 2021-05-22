@@ -5,7 +5,7 @@
 
 package Simulation.server.Plane;
 
-//import Simulation.server.Log_file.Logger_Class;
+import Simulation.stub.Logger_stub;
 
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
@@ -27,7 +27,6 @@ public class Plane  {
     private boolean plane_flying = true;
 
     Random gen = new Random();
-    //private final Condition arrived;
 
     public Plane(){
         plane = new ArrayList<Integer>();
@@ -35,17 +34,9 @@ public class Plane  {
         flying = lock.newCondition();
         hostess = lock.newCondition();
         cd_deboarding = lock.newCondition();
-        // synchronized (Logger_Class.class) {
-        //     Logger_Class.getInstance().setIN_F(plane);
-        // }
+        Logger_stub.getInstance().arr("IN_F",plane);
     }
 
-    // static method to create instance of Singleton class
-    // public static Plane getInstance() {
-    //     if (plane_instance == null)
-    //         plane_instance = new Plane();
-    //     return plane_instance;
-    // }
 
     //---------------------------------------------------/Pilot methods/-----------------------------------------------------//
     public void flyToDestinationPoint(){
@@ -129,13 +120,10 @@ public class Plane  {
             enter = true;
             hostess.signal();
             System.out.printf("passenger %d boarding plane \n", person);
-            // synchronized (Logger_Class.class) {
-            //     Logger_Class.getInstance().setIN_F(plane);
-            // }
+            Logger_stub.getInstance().arr("IN_F",plane);
          }catch(Exception e){
             System.out.println("Interrupter Exception Error - " + e);
             e.printStackTrace();
-
         }finally{
              lock.unlock();
          }
@@ -161,9 +149,7 @@ public class Plane  {
             plane.remove(Integer.valueOf(person));
             cd_deboarding.signal();
             System.out.printf("Passenger %d leaving the plane \n", person);
-            // synchronized (Logger_Class.class) {
-            //     Logger_Class.getInstance().setIN_F(plane);
-            // }
+            Logger_stub.getInstance().arr("IN_F",plane);
         }catch(Exception e){
             System.out.println("Interrupter Exception Error - " + e);
             e.printStackTrace();

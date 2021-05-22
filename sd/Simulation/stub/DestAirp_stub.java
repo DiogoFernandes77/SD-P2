@@ -8,8 +8,7 @@ import java.util.ArrayList;
 
 import static Simulation.message.struct.DestinationAirpMessage.DstAirpMessage.*;
 
-public class DestAirp_stub
-{
+public class DestAirp_stub {
     /**
      *   Singleton reference to Array Transfer
      */
@@ -28,8 +27,6 @@ public class DestAirp_stub
 
         return destAirp_stub;
     }
-
-
 
     public void Passenger_death(int person_id){
         ClientCom con = new ClientCom("localhost", 4003);

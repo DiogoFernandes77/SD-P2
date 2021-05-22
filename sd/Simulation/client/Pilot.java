@@ -3,6 +3,7 @@
  *  @author António Ramos e Diogo Fernandes
  */
 package Simulation.client;
+import Simulation.stub.Logger_stub;
 import Simulation.stub.Plane_stub;
 import Simulation.stub.DepAirp_stub;
 public class Pilot extends Thread{
@@ -24,10 +25,7 @@ public class Pilot extends Thread{
 
     public Pilot(){
         pilot_state = State.AT_TRANSFER_GATE;
-        // synchronized (Logger_Class.class)
-        // {
-        //     Logger_Class.getInstance().setST_Pilot(pilot_state);
-        // }
+        Logger_stub.getInstance().pilot_at_trans(pilot_state);
     }
 
     //implementation of the method run which establishes the thread operativeness
@@ -35,9 +33,7 @@ public class Pilot extends Thread{
     public void run(){
         do{
             setFlightID();
-            
             informPlaneReadyForBoarding();
-            
             waitForAllInBoarding();
             System.out.print("PILOT: GOING TO FLY \n" );
             flyToDestinationPoint();
@@ -52,70 +48,43 @@ public class Pilot extends Thread{
 
     private void setFlightID(){
     	id_to_set++;
-        
         Plane_stub.getInstance().setFlightId(id_to_set);
     }
     
     private void informPlaneReadyForBoarding(){
-        
         pilot_state = State.READY_FOR_BOARDING;
-        // synchronized (Logger_Class.class)
-        // {
-        //     Logger_Class.getInstance().setST_Pilot(pilot_state);
-        //     Logger_Class.getInstance().setFN(id_to_set);
-        //     Logger_Class.getInstance().board_start("\nFlight " + id_to_set + ": boarding started.\n");
-        // }
+        Logger_stub.getInstance().pilot_ready(pilot_state, id_to_set);
         System.out.println("Pilot " + pilot_state);
         DepAirp_stub.getInstance().informPlaneReadyForBoarding();
     }
 
     private void waitForAllInBoarding(){
         pilot_state = State.WAIT_FOR_BOARDING;
-        // synchronized (Logger_Class.class)
-        // {
-        //     Logger_Class.getInstance().setST_Pilot(pilot_state);
-        //     Logger_Class.getInstance().log_write("Pilot is waiting for boarding");
-        // }
+        Logger_stub.getInstance().pilot_wait(pilot_state);
         DepAirp_stub.getInstance().waitForAllInBoarding();
     }
 
     private void flyToDestinationPoint(){
         pilot_state = State.FLYING_FORWARD;
-        // synchronized (Logger_Class.class)
-        // {
-        //     Logger_Class.getInstance().setST_Pilot(pilot_state);
-        //     Logger_Class.getInstance().log_write("Pilot is flying forward");
-        // }
+        Logger_stub.getInstance().pilot_fly_for(pilot_state, id_to_set,flight_passanger_number);
         Plane_stub.getInstance().flyToDestinationPoint();
     }
 
     private void announceArrival(){
         pilot_state = State.DEBOARDING;
-        // synchronized (Logger_Class.class)
-        // {
-        //     Logger_Class.getInstance().setST_Pilot(pilot_state);
-        //     Logger_Class.getInstance().board_start("\nFlight " + id_to_set + ": arrived.\n");
-        // }
+        Logger_stub.getInstance().pilot_deb(pilot_state, id_to_set);
         Plane_stub.getInstance().announceArrival();
     }
 
     private void flyToDeparturePoint(){
         pilot_state = State.FLYING_BACK;
-        // synchronized (Logger_Class.class)
-        // {
-        //     Logger_Class.getInstance().setST_Pilot(pilot_state);
-        //     Logger_Class.getInstance().board_start("\nFlight " + id_to_set + ": returning.\n");
-        // }
+        Logger_stub.getInstance().pilot_fly_bck(pilot_state,id_to_set);
         Plane_stub.getInstance().flyToDeparturePoint();
     }
     
     private void parkAtTransferGate(){
         pilot_state = State.AT_TRANSFER_GATE;
-        // synchronized (Logger_Class.class)
-        // {
-        //     Logger_Class.getInstance().setST_Pilot(pilot_state);
-        //     Logger_Class.getInstance().log_write("Pilot is at transfer gate");
-        // }
+        Logger_stub.getInstance().pilot_at_trans(pilot_state);
         DepAirp_stub.getInstance().parkAtTransferGate();
     }
 
@@ -128,5 +97,4 @@ public class Pilot extends Thread{
     }
 
     public void setFlight_passanger_number(int flight_passanger_number) { this.flight_passanger_number = flight_passanger_number; }
-
 }

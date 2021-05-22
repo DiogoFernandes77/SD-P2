@@ -4,10 +4,13 @@
  */
 package Simulation.client;
 
+import Simulation.stub.Logger_stub;
 import Simulation.stub.Plane_stub;
 import Simulation.stub.DepAirp_stub;
 
-
+/**
+ *
+ */
 public class Hostess extends Thread{
     public enum State{
         WAIT_FOR_NEXT_FLIGHT,
@@ -20,22 +23,17 @@ public class Hostess extends Thread{
     private boolean end_flag = false;
     public Hostess(){
         hostess_state = State.WAIT_FOR_NEXT_FLIGHT;
-        // synchronized (Logger_Class.class)
-        // {
-        //     Logger_Class.getInstance().setST_Hostess(hostess_state);
-        // }
+        Logger_stub.getInstance().hostess_next_fl(hostess_state);
     }
 
     //implementation of the method run which establishes the thread operativeness
     @Override
     public void run(){
         do{
-            
             waitForNextFlight();
             prepareForPassBoarding();
             while(getCurrent_capacity() < getBoardingMin() || (getCurrent_capacity() < getBoardingMax() && !getIsQueueEmpty()) ){
                 if(getPassenger_left() == 0){
-                
                     System.out.println("LAST PASSENGER FLIGHT \n");
                     break;
                 }
@@ -56,41 +54,26 @@ public class Hostess extends Thread{
     }
 
     private void waitForNextFlight(){
-        // synchronized (Logger_Class.class)
-        // {
-        //     Logger_Class.getInstance().setST_Hostess(hostess_state);
-        //     Logger_Class.getInstance().log_write("Hostess is waiting for next flight");
-        // }
+        hostess_state = State.WAIT_FOR_NEXT_FLIGHT;
+        Logger_stub.getInstance().hostess_next_fl(hostess_state);
         DepAirp_stub.getInstance().waitForNextFlight();
     }
 
     private void prepareForPassBoarding(){
         hostess_state = State.WAIT_FOR_PASSENGER;
-        // synchronized (Logger_Class.class)
-        // {
-        //     Logger_Class.getInstance().setST_Hostess(hostess_state);
-        //     Logger_Class.getInstance().log_write("Hostess is waiting for next passenger");
-        // }
+        Logger_stub.getInstance().hostess_wt_pass(hostess_state);
         DepAirp_stub.getInstance().prepareForPassBoarding();
     }
 
     private void waitForNextPassenger(){
         hostess_state = State.WAIT_FOR_PASSENGER;
-        // synchronized (Logger_Class.class)
-        // {
-        //     Logger_Class.getInstance().setST_Hostess(hostess_state);
-        //     Logger_Class.getInstance().log_write("Hostess is waiting for next passenger");
-        // }
+        Logger_stub.getInstance().hostess_wt_pass(hostess_state);
         DepAirp_stub.getInstance().waitForNextPassenger();
     }
 
     private void checkDocuments(){
         hostess_state = State.CHECK_PASSENGER;
-        // synchronized (Logger_Class.class)
-        // {
-        //     Logger_Class.getInstance().setST_Hostess(hostess_state);
-        //     Logger_Class.getInstance().log_write("Hostess is checking documents of passengers");
-        // }
+        Logger_stub.getInstance().hostess_chk(hostess_state);
         DepAirp_stub.getInstance().checkDocuments();
     }
 
@@ -100,11 +83,7 @@ public class Hostess extends Thread{
     
     private void informPlaneReadyToTakeOff(){
         hostess_state = State.READY_TO_FLY;
-        // synchronized (Logger_Class.class)
-        // {
-        //     Logger_Class.getInstance().setST_Hostess(hostess_state);
-        //     Logger_Class.getInstance().log_write("Hostess is ready to fly");
-        // }
+        Logger_stub.getInstance().hostess_rdy_fly(hostess_state, getCurrent_capacity());
         DepAirp_stub.getInstance().informPlaneReadyToTakeOff();
     }
     private int getPassenger_left(){ return DepAirp_stub.getInstance().getPassenger_left(); }
@@ -124,5 +103,4 @@ public class Hostess extends Thread{
     private boolean getIsQueueEmpty(){
         return DepAirp_stub.getInstance().getIsQueueEmpty();
     }
-
 }

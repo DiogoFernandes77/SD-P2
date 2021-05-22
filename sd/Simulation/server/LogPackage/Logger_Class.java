@@ -5,9 +5,13 @@
 
 package Simulation.server.LogPackage;
 
-import Simulation.entities.Hostess;
-import Simulation.entities.Passenger;
-import Simulation.entities.Pilot;
+import Simulation.client.Hostess;
+import Simulation.client.Passenger;
+import Simulation.client.PassengerClient;
+import Simulation.client.Pilot;
+import Simulation.message.struct.LoggerMessage;
+import Simulation.server.DepartAirp.DepAirp_server;
+import Simulation.server.DepartAirp.DepartAirport;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -45,12 +49,18 @@ public class Logger_Class {
     //passenger variables abbreviate
     private String[] Passenger_state = new String[]{"GTAP", "INQE", "INFL", "ATDS"};
 
+    public Logger_Class() {
+        ST_Passenger = new Passenger.State[PassengerClient.n_pass];
+        int num_pass = DepAirp_server.nPassenger;
+        ST_Passenger = new Passenger.State[num_pass];
+        ST_Pilot = Pilot.State.AT_TRANSFER_GATE;
+        ST_Hostess = Hostess.State.WAIT_FOR_NEXT_FLIGHT;
+        this.init();
+    }
 
     //creation file
-    public String createFile()
-    {
-       int file_id = checkFiles(); // check if exists files previously created
-       file_name = directory_file + default_name + (file_id + 1) + extension_file; //output file
+    public String createFile() {
+       file_name = directory_file + default_name + extension_file; //output file
 
        try {
            fileWriter = new FileWriter(file_name);
@@ -61,56 +71,11 @@ public class Logger_Class {
         return file_name;
     }
 
-    //check current files
-    private static int checkFiles() {
-        ArrayList<Integer> sort = new ArrayList<>(); // sort ids of files
-        int fileId = 0; // file id
-        // open directory and filters extentions
-        File dir = new File(directory_file);
-        FilenameFilter filter = new FilenameFilter() {
-            @Override
-            public boolean accept(File dir, String name) {
-                String lowerCaseName = name.toLowerCase();
-                return lowerCaseName.endsWith(extension_file);
-            }
-        };
-
-        String files[] = dir.list(filter);
-        if(files.length == 0){
-            System.out.println("Logger files not created\n");
-            fileId = 0;
-        }
-        else{
-            // loop for each file and split name
-            for(String fileName : files){
-                String fullName[] = fileName.split(extension_file);
-                String name_File = fullName[0];
-                String[] get_number = name_File.split("_");
-                fileId = Integer.parseInt(get_number[1]);
-                sort.add(fileId);
-                Collections.sort(sort);
-                fileId = sort.get(sort.size()-1);
-            }
-        }
-
-        return fileId;
-    }
-
-    public Logger_Class() { ST_Passenger = new Passenger.State[Start.n_passenger]; }
-
-    // Implements singleton
-    public static Logger_Class getInstance(){
-        if (loggerClass == null)
-        {
-            loggerClass = new Logger_Class();
-        }
-        return loggerClass;
-    }
 
     // start writing head of file
     public void init(){
         String file_name = createFile(); //creation of file
-        add_struct(file_name, Start.n_passenger);   //header file
+        add_struct(file_name, DepAirp_server.nPassenger);   //header file
     }
 
     //header file
@@ -161,11 +126,10 @@ public class Logger_Class {
         }
     }
 
-    public void departed(int total_transported){
+    public void departed(String total_transported){
         try {
             fileWriter = new FileWriter(file_name, true);
-            fileWriter.write("\nFlight " + FN + " departed with " + total_transported + " passengers.\n");
-            Summary.add("Flight " + FN + " departed with " + total_transported + " passengers.");
+            fileWriter.write(total_transported);
             fileWriter.flush();
             fileWriter.close();
         } catch (IOException e) {
@@ -174,11 +138,11 @@ public class Logger_Class {
     }
 
     // summary of flights
-    public void summary(){
+    public void summary(ArrayList<String> summ){
         try {
             fileWriter = new FileWriter(file_name, true);
             fileWriter.write("\nAirlift sum up:\n");
-            for (String s : Summary)
+            for (String s : summ)
                 fileWriter.write(s + "\n");
             fileWriter.flush();
             fileWriter.close();
@@ -195,7 +159,7 @@ public class Logger_Class {
             struct_string.append(Pilot_state[ST_Pilot.ordinal()]).append(" ");
             struct_string.append(Hostess_state[ST_Hostess.ordinal()]).append(" ");
 
-            for (int i = 0; i < Start.n_passenger; i ++){
+            for (int i = 0; i < PassengerClient.n_pass; i ++){
                 struct_string.append(Passenger_state[ST_Passenger[i].ordinal()]).append(" ");
             }
             struct_string.append("\t").append(Q.size()).append("\t").append(IN_F.size()).append("\t").append(ATL.size()).append("\n");
@@ -217,7 +181,7 @@ public class Logger_Class {
 
     public void setST_Hostess(Hostess.State st) { this.ST_Hostess = st; }
 
-    public void setQ(Queue<Integer> q) { Q = new ArrayList<>(q); }
+    public void setQ(ArrayList<Integer> q) { this.Q =  q; }
 
     public void setIN_F(ArrayList<Integer> IN_F) { this.IN_F = IN_F; }
 

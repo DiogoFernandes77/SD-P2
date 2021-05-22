@@ -5,6 +5,8 @@
 
 package Simulation.server.DepartAirp;
 
+import Simulation.stub.Logger_stub;
+
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.concurrent.locks.Condition;
@@ -31,36 +33,19 @@ public class DepartAirport {
     //construct for the departure airport, know passenger, plane capacity, min and max of boarding
     public DepartAirport(int nPassenger, int boardMin, int boardMax){
         lock = new ReentrantLock();
-
         queue = new LinkedList<>();
         waitingPlane = lock.newCondition();
         waitingPassenger = lock.newCondition();
         waitingCheck = lock.newCondition();
         waitingShow = lock.newCondition();
         waitingFly = lock.newCondition();
-        
-        // nPassenger = Start.n_passenger;
-        // boardMin = Start.boarding_min;
-        // boardMax = Start.boarding_max;
-        // passenger_left = nPassenger;
+
         this.nPassenger = nPassenger;
         this.boardMin = boardMin;
         this.boardMax = boardMax;
         passenger_left = nPassenger;
-        
-        
-        
-        // synchronized (Logger_Class.class)
-        // {
-        //     Logger_Class.getInstance().setQ(queue);
-        // }
+        Logger_stub.getInstance().arrQ("Q",queue);
     }
-
-    // public static DepartAirport getInstance() {
-    //     if (depArp_instance == null)
-    //         depArp_instance = new DepartAirport();
-    //     return depArp_instance;
-    // }
 
     //---------------------------------------------------/Pilot methods/-----------------------------------------------------//
     
@@ -87,8 +72,7 @@ public class DepartAirport {
             while(!boardingComplete){
                 waitingFly.await();   
            }
-           boardingComplete = false; 
-           
+           boardingComplete = false;
         }catch(Exception e){
             System.out.println("Interrupter Exception Error - " + e);
             e.printStackTrace();
@@ -179,9 +163,7 @@ public class DepartAirport {
         try{
             boardingComplete = true;
             waitingFly.signal();
-            // synchronized(Logger_Class.class){
-            //     Logger_Class.getInstance().departed(current_capacity);
-            // }
+            Logger_stub.getInstance().departed(current_capacity);
         }catch(Exception e){
             System.out.println("Interrupter Exception Error - " + e);
             e.printStackTrace();
@@ -213,9 +195,7 @@ public class DepartAirport {
         try{
             System.out.printf("passenger %d enters queue \n", person);
             queue.add(person);
-            // synchronized (Logger_Class.class) {
-            //     Logger_Class.getInstance().setQ(queue);
-            // }
+            Logger_stub.getInstance().arrQ("Q",queue);
         }catch(Exception e){
             System.out.println("Interrupter Exception Error - " + e);
             e.printStackTrace();
@@ -248,9 +228,7 @@ public class DepartAirport {
             showing = true;
             waitingShow.signal();
             System.out.printf("passenger %d  show documents \n", person);
-            // synchronized(Logger_Class.class){
-            //     Logger_Class.getInstance().pass_check( ": passenger " + person + " checked.\n");
-            // }
+            Logger_stub.getInstance().arrQ("Q",queue);
             //block state 2
             while(!block_state2){
                 waitingPassenger.await(); 
