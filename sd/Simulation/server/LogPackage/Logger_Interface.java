@@ -1,7 +1,7 @@
 package Simulation.server.LogPackage;
 import Simulation.client.Hostess;
 import Simulation.client.Passenger;
-import Simulation.client.Pilot;
+import Simulation.States.*;
 import Simulation.message.Message;
 import Simulation.message.struct.LoggerMessage;
 import Simulation.server.LogPackage.Logger_Class;
@@ -43,15 +43,15 @@ public class Logger_Interface implements Serverable {
               logger.log_write(log);
           }
         }else if(PIL_STATE.equals(type)){
-            Pilot.State ST_Pilot = ((LoggerMessage) inMessage).getST_Pilot();
+            Pilot_State ST_Pilot = ((LoggerMessage) inMessage).getST_Pilot();
             synchronized (Logger_Class.class){
                 logger.setST_Pilot(ST_Pilot);
             }
         } else if(PIL_STATE_LOG.equals(type) ) {
-            Pilot.State ST_Pilot = ((LoggerMessage) inMessage).getST_Pilot();
+            Pilot_State ST_Pilot = ((LoggerMessage) inMessage).getST_Pilot();
             String log = ((LoggerMessage) inMessage).getLog();
 
-            if (ST_Pilot.equals(Pilot.State.READY_FOR_BOARDING)){
+            if (ST_Pilot.equals(Pilot_State.READY_FOR_BOARDING)){
                 int FN = ((LoggerMessage) inMessage).getFN();
 
                 synchronized (Logger_Class.class){
@@ -59,14 +59,14 @@ public class Logger_Interface implements Serverable {
                     logger.setFN(FN);
                     logger.board_start("\nFlight " + FN + ": boarding started.\n");
                 }
-            } else if (ST_Pilot.equals(Pilot.State.DEBOARDING)){
+            } else if (ST_Pilot.equals(Pilot_State.DEBOARDING)){
                 int FN = ((LoggerMessage) inMessage).getFN();
 
                 synchronized (Logger_Class.class){
                     logger.setST_Pilot(ST_Pilot);
                     logger.board_start("\nFlight " + FN + ": arrived.\n");
                 }
-            } else if (ST_Pilot.equals(Pilot.State.FLYING_BACK)){
+            } else if (ST_Pilot.equals(Pilot_State.FLYING_BACK)){
                 int FN = ((LoggerMessage) inMessage).getFN();
 
                 synchronized (Logger_Class.class){

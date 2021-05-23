@@ -3,7 +3,7 @@ package Simulation.stub;
 import Simulation.client.ClientCom;
 import Simulation.client.Hostess;
 import Simulation.client.Passenger;
-import Simulation.client.Pilot;
+import Simulation.States.Pilot_State;
 import Simulation.message.struct.DepartureAirpMessage;
 import Simulation.message.struct.LoggerMessage;
 
@@ -83,7 +83,7 @@ public class Logger_stub {
         }
     } //flight x: passenger y checked.
 
-    public void pil_state(Pilot.State p){
+    public void pil_state(Pilot_State p){
         ClientCom con = new ClientCom("localhost",4004);
         LoggerMessage requestMessage, responseMessage;
 
@@ -102,7 +102,7 @@ public class Logger_stub {
     
     }
 
-    public void pil_state_log(Pilot.State p, String x) {
+    public void pil_state_log(Pilot_State p, String x) {
         ClientCom con = new ClientCom("localhost",4004);
         LoggerMessage requestMessage, responseMessage;
 
@@ -121,7 +121,7 @@ public class Logger_stub {
         }
     }
 
-    public void pil_board_start(Pilot.State p, int fn){
+    public void pil_board_start(Pilot_State p, int fn){
         ClientCom con = new ClientCom("localhost",4004);
         LoggerMessage requestMessage, responseMessage;
 

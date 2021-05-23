@@ -7,7 +7,7 @@ package Simulation.server.LogPackage;
 
 import Simulation.client.Hostess;
 import Simulation.client.Passenger;
-import Simulation.client.Pilot;
+import Simulation.States.Pilot_State;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -26,7 +26,7 @@ public class Logger_Class {
     //auxiliar variables
     int FN; // number of flight
     public Passenger.State[] ST_Passenger; // State of the Passengers; save state of each passenger
-    public Pilot.State ST_Pilot; // State of the Pilot
+    public Pilot_State ST_Pilot; // State of the Pilot
     public Hostess.State ST_Hostess; // State of the Hostess
 
     private ArrayList<Integer> Q; // State of the waiting queue
@@ -48,7 +48,7 @@ public class Logger_Class {
     public Logger_Class(int nPassenger) {
         this.nPassenger = nPassenger;
         ST_Passenger = new Passenger.State[nPassenger];
-        ST_Pilot =  Pilot.State.AT_TRANSFER_GATE;
+        ST_Pilot =  Pilot_State.AT_TRANSFER_GATE;
         ST_Hostess = Hostess.State.WAIT_FOR_NEXT_FLIGHT;
         Q = new ArrayList<Integer>();
         IN_F = new ArrayList<Integer>();
@@ -192,7 +192,7 @@ public class Logger_Class {
     
     }
 
-    public void setST_Pilot(Pilot.State ST_Pilot) { 
+    public void setST_Pilot(Pilot_State ST_Pilot) { 
         
         this.ST_Pilot = ST_Pilot; }
 

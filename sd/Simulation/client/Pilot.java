@@ -6,25 +6,22 @@ package Simulation.client;
 import Simulation.stub.Logger_stub;
 import Simulation.stub.Plane_stub;
 import Simulation.stub.DepAirp_stub;
-public class Pilot extends Thread{
-    public enum State{
-        AT_TRANSFER_GATE,
-        READY_FOR_BOARDING,
-        WAIT_FOR_BOARDING,
-        FLYING_FORWARD,
-        DEBOARDING,
-        FLYING_BACK
-    }
+import Simulation.States.Pilot_State;
 
-    private State pilot_state;
+
+
+public class Pilot extends Thread{
+    private Pilot_State pilot_state;
+
+    
     private int flight_passanger_number;
     public int id_to_set = 0;
-    private State get_State(){
+    private Pilot_State get_State(){
         return pilot_state;
     }
 
     public Pilot(){
-        pilot_state = State.AT_TRANSFER_GATE;
+        pilot_state = Pilot_State.AT_TRANSFER_GATE;
         Logger_stub.getInstance().pil_state(pilot_state);
     }
 
@@ -53,38 +50,38 @@ public class Pilot extends Thread{
     }
     
     private void informPlaneReadyForBoarding(){
-        pilot_state = State.READY_FOR_BOARDING;
+        pilot_state = Pilot_State.READY_FOR_BOARDING;
         Logger_stub.getInstance().pil_board_start(pilot_state, id_to_set);//\nFlight " + id_to_set + ": boarding started.\n"
         System.out.println("Pilot " + pilot_state);
         DepAirp_stub.getInstance().informPlaneReadyForBoarding();
     }
 
     private void waitForAllInBoarding(){
-        pilot_state = State.WAIT_FOR_BOARDING;
+        pilot_state = Pilot_State.WAIT_FOR_BOARDING;
         Logger_stub.getInstance().pil_state_log(pilot_state,"Pilot is waiting for boarding");
         DepAirp_stub.getInstance().waitForAllInBoarding();
     }
 
     private void flyToDestinationPoint(){
-        pilot_state = State.FLYING_FORWARD;
+        pilot_state = Pilot_State.FLYING_FORWARD;
         Logger_stub.getInstance().pil_state_log(pilot_state, "Pilot is flying forward");
         Plane_stub.getInstance().flyToDestinationPoint();
     }
 
     private void announceArrival(){
-        pilot_state = State.DEBOARDING;
+        pilot_state = Pilot_State.DEBOARDING;
         Logger_stub.getInstance().pil_board_start(pilot_state, id_to_set);//\nFlight " + id_to_set + ": arrived.\n"
         Plane_stub.getInstance().announceArrival();
     }
 
     private void flyToDeparturePoint(){
-        pilot_state = State.FLYING_BACK;
+        pilot_state = Pilot_State.FLYING_BACK;
         Logger_stub.getInstance().pil_board_start(pilot_state, id_to_set);//\nFlight " + id_to_set + ": returning.\n"
         Plane_stub.getInstance().flyToDeparturePoint();
     }
     
     private void parkAtTransferGate(){
-        pilot_state = State.AT_TRANSFER_GATE;
+        pilot_state = Pilot_State.AT_TRANSFER_GATE;
         Logger_stub.getInstance().pil_state_log(pilot_state,"Pilot is at transfer gate");
         DepAirp_stub.getInstance().parkAtTransferGate();
     }

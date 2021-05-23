@@ -2,7 +2,7 @@ package Simulation.message.struct;
 
 import Simulation.client.Hostess;
 import Simulation.client.Passenger;
-import Simulation.client.Pilot;
+import Simulation.States.Pilot_State;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 import Simulation.message.Message;
@@ -43,7 +43,7 @@ public class LoggerMessage implements Serializable, Message{
     //auxiliary variables
     int FN; // number of flight
     public Passenger.State ST_Passenger; // State of the Passengers; save state of each passenger
-    public Pilot.State ST_Pilot; // State of the Pilot
+    public Pilot_State ST_Pilot; // State of the Pilot
     public Hostess.State ST_Hostess; // State of the Hostess
 
     public ArrayList<Integer> Q; // State of the waiting queue
@@ -83,19 +83,19 @@ public class LoggerMessage implements Serializable, Message{
 
 
     //states pilot
-    public LoggerMessage(LG_Message type, Pilot.State pl){
+    public LoggerMessage(LG_Message type, Pilot_State pl){
         this(type);
         this.ST_Pilot = pl;
     }
 
     //logger pilot
-    public LoggerMessage(LG_Message type, Pilot.State pl, String x){
+    public LoggerMessage(LG_Message type, Pilot_State pl, String x){
         this(type,pl);
         this.log = x;
     }
 
     //pilot set fn
-    public LoggerMessage(LG_Message type, Pilot.State pl, int fn){
+    public LoggerMessage(LG_Message type, Pilot_State pl, int fn){
         this(type,pl);
         this.FN = fn;
     }
@@ -151,7 +151,7 @@ public class LoggerMessage implements Serializable, Message{
 
     public Passenger.State getST_Passenger() { return ST_Passenger; }
 
-    public Pilot.State getST_Pilot() { return ST_Pilot; }
+    public Pilot_State getST_Pilot() { return ST_Pilot; }
 
     public Hostess.State getST_Hostess() { return ST_Hostess; }
 
