@@ -14,9 +14,10 @@ import static Simulation.message.struct.LoggerMessage.LG_Message.*;
 
 public class Logger_Interface implements Serverable {
     private Logger_Class logger = null;
-
-    public Logger_Interface(Logger_Class log) {
+    private int counter;
+    public Logger_Interface(Logger_Class log, int counter) {
         this.logger = log;
+        this.counter = counter + 2;
     }
 
 
@@ -121,11 +122,15 @@ public class Logger_Interface implements Serverable {
                 logger.setIN_F(IN_F);
             }
         } else if (SHUT.equals(type)){
-            synchronized (Logger_Class.class){
+            if(--counter == 0){
+                synchronized (Logger_Class.class){
                 logger.summary();
-            }
+                }
+            
             Logger_Server.waitConnection = false;
             (((Proxy) (Thread.currentThread())).getScon()).setTimeout(10);
+            }
+            
 
         }
         response = new LoggerMessage(SUCCESS);  

@@ -41,8 +41,9 @@ public class Passenger extends Thread{
         waitForEndOfFlight();
         leaveThePlane();
         death();
+        Logger_stub.getInstance().shutdown();
     }
-
+    
     //Passenger time to go to airport between 0 and 10 sec
     private void travelToAirport() {
         Random gen = new Random();

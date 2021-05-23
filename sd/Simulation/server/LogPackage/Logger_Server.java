@@ -41,7 +41,7 @@ public class Logger_Server {
         
         
         Logger_Class logger_class = new Logger_Class(nPassenger);
-        Logger_Interface logger_int = new Logger_Interface(logger_class);
+        Logger_Interface logger_int = new Logger_Interface(logger_class, nPassenger);
 
         ServerCom scon = new ServerCom (4004);
         scon.start();
