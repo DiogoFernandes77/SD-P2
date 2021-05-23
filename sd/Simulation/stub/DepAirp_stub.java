@@ -7,7 +7,9 @@ import Simulation.message.struct.DepartureAirpMessage;
 import java.util.ArrayList;
 
 import static Simulation.message.struct.DepartureAirpMessage.DpAirpMessage.*;
-
+/**
+ * DepAirp_stub communication
+ */
 public class DepAirp_stub {
     /**
      *   Singleton reference to Array Transfer
@@ -26,6 +28,9 @@ public class DepAirp_stub {
     }
 
     //-------------------------------------------------------pilot------------------------------------------------------------------
+    /**
+     * Pilot inform Hostess that plane is ready to board
+     */
     public void informPlaneReadyForBoarding(){
         ClientCom con = new ClientCom("localhost", 4001);
         DepartureAirpMessage requestMessage, responseMessage;
@@ -43,6 +48,9 @@ public class DepAirp_stub {
         }
     }
 
+    /**
+     * Waits for the passenger enter in the plane until hostess gives the signal
+     */
     public void waitForAllInBoarding(){
         ClientCom con = new ClientCom("localhost", 4001);
         DepartureAirpMessage requestMessage, responseMessage;
@@ -58,6 +66,9 @@ public class DepAirp_stub {
         }
     }
 
+    /**
+     * Pilot inform that he is in transfer gate
+     */
     public void parkAtTransferGate(){
         ClientCom con = new ClientCom("localhost", 4001);
         DepartureAirpMessage requestMessage, responseMessage;
@@ -74,7 +85,10 @@ public class DepAirp_stub {
     }
 
     //-------------------------------------------------------Hostess------------------------------------------------------------------
-    //Hostess gets ready and waits until first passenger
+
+    /**
+     * Hostess gets ready and waits until first passenger
+     */
     public void prepareForPassBoarding(){
         ClientCom con = new ClientCom("localhost", 4001);
         DepartureAirpMessage requestMessage, responseMessage;
@@ -89,8 +103,10 @@ public class DepAirp_stub {
             con.close();
         }
     }
- 
-    //Hostess check documents of the passenger in queue
+
+    /**
+     * Hostess check documents of the passenger in queue
+     */
     public void checkDocuments(){
         ClientCom con = new ClientCom("localhost", 4001);
         DepartureAirpMessage requestMessage, responseMessage;
@@ -107,7 +123,9 @@ public class DepAirp_stub {
         }
     }
 
-    //Hostess waits for the passengers
+    /**
+     * Hostess waits for the passengers
+     */
     public void waitForNextPassenger(){
         ClientCom con = new ClientCom("localhost", 4001);
         DepartureAirpMessage requestMessage, responseMessage;
@@ -122,8 +140,10 @@ public class DepAirp_stub {
             con.close();
         }
     }
- 
-    //Hostess signals pilot that he can fly
+
+    /**
+     * Hostess signals pilot that he can fly
+     */
     public void informPlaneReadyToTakeOff(){
         ClientCom con = new ClientCom("localhost", 4001);
         DepartureAirpMessage requestMessage, responseMessage;
@@ -138,8 +158,10 @@ public class DepAirp_stub {
             con.close();
         }
     }
- 
-    //Hostess waits until next flight
+
+    /**
+     * Hostess waits until next flight
+     */
     public void waitForNextFlight(){
         ClientCom con = new ClientCom("localhost", 4001);
         DepartureAirpMessage requestMessage, responseMessage;
@@ -155,6 +177,11 @@ public class DepAirp_stub {
         }
     }
     //-------------------------------------------------------Hostess------------------------------------------------------------------
+
+    /**
+     * Passenger person enters in queue
+     * @param person_id - id passenger
+     */
     public void enterQueue(int person_id){
         ClientCom con = new ClientCom("localhost", 4001);
         DepartureAirpMessage requestMessage, responseMessage;
@@ -170,7 +197,10 @@ public class DepAirp_stub {
         }
     }
     
-    //Passenger waits in the queue before showing docs
+    /**
+     * Passenger waits in the queue before showing docs
+     * @param person_id - id passenger
+     */
     public void waitInQueue(int person_id){   
         ClientCom con = new ClientCom("localhost", 4001);
         DepartureAirpMessage requestMessage, responseMessage;
@@ -185,8 +215,11 @@ public class DepAirp_stub {
             con.close();
         }
     }
-    
-    //Passenger shows documents
+
+    /**
+     * Passenger shows documents
+     * @param person_id - id passenger
+     */
     public void showDocuments(int person_id){
         ClientCom con = new ClientCom("localhost", 4001);
         DepartureAirpMessage requestMessage, responseMessage;
@@ -201,7 +234,10 @@ public class DepAirp_stub {
             con.close();
         }
     }
-
+    /**
+     * getCurrent_capacity
+     * @return current_capacity
+     */
     public int getCurrent_capacity(){
         ClientCom con = new ClientCom("localhost", 4001);
         DepartureAirpMessage requestMessage, responseMessage;
@@ -220,7 +256,10 @@ public class DepAirp_stub {
     
         return current_capacity;
     }
-
+    /**
+     * get passenger left
+     * @return passenger_left
+     */
     public int getPassenger_left(){
         ClientCom con = new ClientCom("localhost", 4001);
         DepartureAirpMessage requestMessage, responseMessage;
@@ -239,7 +278,10 @@ public class DepAirp_stub {
     
         return passenger_left;
     }
-
+    /**
+     * getBoardingMax
+     * @return boardMax
+     */
     public int getBoardingMax(){
         ClientCom con = new ClientCom("localhost", 4001);
         DepartureAirpMessage requestMessage, responseMessage;
@@ -258,7 +300,10 @@ public class DepAirp_stub {
     
         return board_max;
     }
-
+    /**
+     * getBoardingMin
+     * @return boardMin
+     */
     public int getBoardingMin(){
         ClientCom con = new ClientCom("localhost", 4001);
         DepartureAirpMessage requestMessage, responseMessage;
@@ -277,7 +322,10 @@ public class DepAirp_stub {
     
         return board_min;
     }
-
+    /**
+     * getIsQueueEmpty
+     * @return <li>True if is empty <li> False if not
+     */
     public boolean getIsQueueEmpty(){
         ClientCom con = new ClientCom("localhost", 4001);
         DepartureAirpMessage requestMessage, responseMessage;
@@ -297,7 +345,10 @@ public class DepAirp_stub {
     
         return queueEmpty;
     }
-
+    /**
+     * stillPassenger
+     * @return <li>True if is empty <li> False if not
+     */
     public boolean stillPassenger(){
         ClientCom con = new ClientCom("localhost", 4001);
         DepartureAirpMessage requestMessage, responseMessage;

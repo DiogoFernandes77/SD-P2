@@ -8,7 +8,9 @@ import Simulation.server.Serverable;
 
 
 import static Simulation.message.struct.DestinationAirpMessage.DstAirpMessage.*;
-
+/**
+ * Destination interface para implementar as mensagens recebidas
+ */
 public class DestAirp_interface implements Serverable{
     private DestAirport dest_airp = null;
 
@@ -16,6 +18,11 @@ public class DestAirp_interface implements Serverable{
         this.dest_airp = dest_airp;
     }
 
+    /**
+     * Process and reply messages received
+     * @param requestMessage
+     * @return
+     */
     @Override
     public Message processAndReply(Message requestMessage) {
         Message response = null;

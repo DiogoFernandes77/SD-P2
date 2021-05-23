@@ -26,7 +26,7 @@ public class Proxy extends Thread
     /**
      *  Interface às localizações(plane,depAirp,destAirp)
      *
-     *    @serialField bShopInter
+     *    @serialField Interface pretended
      */
 
     private Simulation.server.Serverable server;

@@ -5,11 +5,17 @@ import Simulation.server.ServerCom;
 import java.net.SocketTimeoutException;
 
 import Simulation.server.Proxy;
-public class Plane_server {
 
+/**
+ * Plane server
+ */
+public class Plane_server {
     public static boolean waitConnection;
 
-
+    /**
+     * Doesn't have args
+     * @param args
+     */
     public static void main(String[] args){
         
         Plane plane = new Plane();
@@ -29,12 +35,7 @@ public class Plane_server {
                 proxy.start();
 
             }catch (SocketTimeoutException e) {}
-
-
-
         }
         scon.end();
     }
-
-
 }

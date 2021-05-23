@@ -1,13 +1,19 @@
 package Simulation.server.LogPackage;
-// initiate Logger server
 
 import Simulation.server.ServerCom;
 import Simulation.server.Proxy;
 import java.net.SocketTimeoutException;
-
+/**
+ * Logger_Server is the class that instantiates the Logger server
+ */
 public class Logger_Server {
     public static boolean waitConnection;
     public static int nPassenger,boardMax,boardMin;
+    /**
+     * nPassenger, boarding min, boarding max
+     * Default 21 8 3 if args.length == 0
+     * @param args - nPassenger, boarding min, boarding max
+     */
     public static void main(String[] args){
         if(args.length == 3){//custom config
             try{
@@ -17,7 +23,6 @@ public class Logger_Server {
             }catch(Exception e){
                 System.out.print("Args must be numbers \n");
                 System.exit(1);
-            
             }
             if(nPassenger == 0){
                 System.out.print(" Nº passenger can't be 0 \n");
@@ -38,8 +43,7 @@ public class Logger_Server {
             System.out.print("N_max_passengers boardMax boardMin\n");
             System.exit(1);
         }
-        
-        
+
         Logger_Class logger_class = new Logger_Class(nPassenger);
         Logger_Interface logger_int = new Logger_Interface(logger_class, nPassenger);
 

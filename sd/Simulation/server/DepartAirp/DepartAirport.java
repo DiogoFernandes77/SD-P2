@@ -13,7 +13,9 @@ import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-
+/**
+ * DepartAirport
+ */
 public class DepartAirport {
     private static DepartAirport depArp_instance = null;
 
@@ -30,7 +32,13 @@ public class DepartAirport {
     private boolean rdyCheck = false;
     private boolean boardingComplete = false;
     private boolean block_state2 = false;
-    //construct for the departure airport, know passenger, plane capacity, min and max of boarding
+
+    /**
+     * Construct for the departure airport, know passenger, plane capacity, min and max of boarding
+     * @param nPassenger
+     * @param boardMin
+     * @param boardMax
+     */
     public DepartAirport(int nPassenger, int boardMin, int boardMax){
         lock = new ReentrantLock();
         queue = new LinkedList<>();
@@ -44,12 +52,13 @@ public class DepartAirport {
         this.boardMin = boardMin;
         this.boardMax = boardMax;
         passenger_left = nPassenger;
-        
     }
 
     //---------------------------------------------------/Pilot methods/-----------------------------------------------------//
-    
-    //Signals Hostess that plane is ready to board
+
+    /**
+     * Pilot inform Hostess that plane is ready to board
+     */
     public void informPlaneReadyForBoarding(){
         lock.lock();
         try{
@@ -65,8 +74,10 @@ public class DepartAirport {
             lock.unlock();
         }
     }
-     
-    //waits for the passenger enter in the plane until hostess gives the signal
+
+    /**
+     * Waits for the passenger enter in the plane until hostess gives the signal
+     */
     public void waitForAllInBoarding( ){
         lock.lock();
         try{
@@ -82,6 +93,9 @@ public class DepartAirport {
         }
     }
 
+    /**
+     * Pilot inform that he is in transfer gate
+     */
     public void parkAtTransferGate(){
         lock.lock();
         try{
@@ -97,7 +111,9 @@ public class DepartAirport {
    
     //---------------------------------------------------/Hostess methods/-----------------------------------------------------//
 
-    //Hostess gets ready and waits until first passenger
+    /**
+     * Hostess gets ready and waits until first passenger
+     */
     public void prepareForPassBoarding(){
         lock.lock();
         try{
@@ -112,8 +128,10 @@ public class DepartAirport {
             lock.unlock();
         }
     }
- 
-    //Hostess check documents of the passenger in queue
+
+    /**
+     * Hostess check documents of the passenger in queue
+     */
     public void checkDocuments(){
         lock.lock();
         try{
@@ -142,7 +160,9 @@ public class DepartAirport {
         }
     }
 
-    //Hostess waits for the passengers
+    /**
+     * Hostess waits for the passengers
+     */
     public void waitForNextPassenger(){
         lock.lock();
         try{
@@ -159,8 +179,10 @@ public class DepartAirport {
             lock.unlock();
         }
     }
- 
-    //Hostess signals pilot that he can fly
+
+    /**
+     * Hostess signals pilot that he can fly
+     */
     public void informPlaneReadyToTakeOff(){
         lock.lock();
         try{
@@ -174,8 +196,10 @@ public class DepartAirport {
             lock.unlock();
         }
     }
- 
-    //Hostess waits until next flight
+
+    /**
+     * Hostess waits until next flight
+     */
     public void waitForNextFlight(){
         lock.lock();
         try{
@@ -193,6 +217,10 @@ public class DepartAirport {
     
     //---------------------------------------------------/Passenger methods/-----------------------------------------------------//
 
+    /**
+     * Passenger person enters in queue
+     * @param person - id passenger
+     */
     public void enterQueue(int person){
         lock.lock();
         try{
@@ -207,8 +235,11 @@ public class DepartAirport {
             lock.unlock();
         }
     }
-    
-    //Passenger waits in the queue before showing docs
+
+    /**
+    * Passenger waits in the queue before showing docs
+     * @param person - id passenger
+     */
     public void waitInQueue(int person){   
         lock.lock();
         try{
@@ -225,8 +256,11 @@ public class DepartAirport {
             lock.unlock();
         }
     }
-    
-    //Passenger shows documents
+
+    /**
+     * Passenger shows documents
+     * @param person - id passenger
+     */
     public void showDocuments(int person){
         lock.lock();
         try{
@@ -247,20 +281,45 @@ public class DepartAirport {
         }
     }
  //---------------------------------------------------/getters/setters/-----------------------------------------------------//
+
+    /**
+     * get passenger left
+     * @return passenger_left
+     */
     public int getPassenger_left() {
-    return this.passenger_left;
+        return this.passenger_left;
     }
+    /**
+     * getBoardingMin
+     * @return boardMin
+     */
     public int getBoardingMin(){
         return boardMin;
     }
+    /**
+     * getBoardingMax
+     * @return boardMax
+     */
     public int getBoardingMax(){
         return boardMax;
     }
+    /**
+     * getCurrent_capacity
+     * @return current_capacity
+     */
     public int getCurrent_capacity(){
         return current_capacity;
     }
+    /**
+     * getIsQueueEmpty
+     * @return <li>True if is empty <li> False if not
+     */
     public boolean getIsQueueEmpty(){
         return queue.isEmpty();
     }
+    /**
+     * stillPassenger
+     * @return <li>True if is empty <li> False if not
+     */
     public boolean stillPassenger(){ return (passenger_left != 0); }
 }

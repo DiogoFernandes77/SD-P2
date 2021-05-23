@@ -10,6 +10,7 @@ import Simulation.States.*;
 import java.io.*;
 import java.util.ArrayList;
 
+//Class responsible to write on file the state of program
 public class Logger_Class {
     //implements singleton for repository information about what happens in the simulation, gives output file
 
@@ -43,6 +44,10 @@ public class Logger_Class {
     private String[] Passenger_state = new String[]{"GTAP", "INQE", "INFL", "ATDS"};
     StringBuilder struct_string;
 
+    /**
+     * Constructor of Logger
+     * @param nPassenger
+     */
     public Logger_Class(int nPassenger) {
         this.nPassenger = nPassenger;
         ST_Passenger = new Passenger_State[nPassenger];
@@ -51,11 +56,13 @@ public class Logger_Class {
         Q = new ArrayList<Integer>();
         IN_F = new ArrayList<Integer>();
         ATL = new ArrayList<Integer>();
-
         this.init();
     }
 
-    //creation file
+    /**
+     * Creation of a empty file
+     * @return file_name
+     */
     public String createFile() {
        file_name = directory_file + default_name + extension_file; //output file
        File dir = new File(file_name);
@@ -68,14 +75,19 @@ public class Logger_Class {
         return file_name;
     }
 
-
-    // start writing head of file
+    /**
+     * Start writing head of file
+     */
     public void init(){
         String file_name = createFile(); //creation of file
         add_struct(file_name, nPassenger);   //header file
     }
 
-    //header file
+    /**
+     * header file
+     * @param file_n -- String
+     * @param n_passenger -- int
+     */
     public void add_struct(String file_n, int n_passenger){
         try {
             fileWriter = new FileWriter(file_n);
@@ -98,8 +110,9 @@ public class Logger_Class {
         }
     }
 
-    // write on flight struct of Flight x: boarding started.
-    // x is the number of the flight
+    /** Used for writing Flight x: boarding started, returnig, arrived
+     * x is the number of the flight
+     */
     public void board_start(String text){
         try {
             fileWriter = new FileWriter(file_name, true);
@@ -111,7 +124,10 @@ public class Logger_Class {
         }
     }
 
-    //add struct Flight x: passenger y checked.
+    /**
+     * add struct Flight x: passenger y checked.
+     * @param text -- String
+     */
     public void pass_check(String text){
         try {
             fileWriter = new FileWriter(file_name, true);
@@ -123,6 +139,11 @@ public class Logger_Class {
         }
     }
 
+    /**
+     * Write struct of Flight x departed with y passengers
+     * Add output on array, for using in final simulation, for writing a summary
+     * @param capacity -int
+     */
     public void departed(int capacity){
         try {
             fileWriter = new FileWriter(file_name, true);
@@ -135,10 +156,11 @@ public class Logger_Class {
         }
     }
 
-    // summary of flights
+    /**
+      * Summary of flights
+     */
     public void summary(){
         try {
-            
             fileWriter = new FileWriter(file_name, true);
             fileWriter.write("\nAirlift sum up:\n");
             for (String s : Summary)
@@ -150,7 +172,10 @@ public class Logger_Class {
         }
     }
 
-    //when change main events
+    /**
+     * Write main events on file
+     * @param type - string
+     */
     public void log_write(String type){
         System.out.println(type);
         try {
@@ -184,23 +209,44 @@ public class Logger_Class {
 
     // -------------------------- SETTERS ------------------------- //
 
+    /**
+     * Set FLIGHT NUMBER
+     * @param FN
+     */
     public void setFN(int FN) { this.FN = FN; }
-
-    public void setST_Passenger(int id, Passenger_State ST_Passenger) { 
-        
-        this.ST_Passenger[id] = ST_Passenger; 
-    
+    /**
+     * Set PASSENGER STATE OF ID
+     * @param id
+     * @param ST_Passenger
+     */
+    public void setST_Passenger(int id, Passenger_State ST_Passenger) {
+        this.ST_Passenger[id] = ST_Passenger;
     }
-
-    public void setST_Pilot(Pilot_State ST_Pilot) { 
-        
-        this.ST_Pilot = ST_Pilot; }
-
+    /**
+     * Set pilot STATE
+     * @param ST_Pilot
+     */
+    public void setST_Pilot(Pilot_State ST_Pilot) {
+        this.ST_Pilot = ST_Pilot;
+    }
+    /**
+     * Set pilot STATE
+     * @param st
+     */
     public void setST_Hostess(Hostess_State st) { this.ST_Hostess = st; }
-
+    /**
+     * Set ArrayList in queue
+     * @param q
+     */
     public void setQ(ArrayList<Integer> q) { this.Q =  q; }
-
+    /**
+     * Set ArrayList in flight
+     * @param IN_F
+     */
     public void setIN_F(ArrayList<Integer> IN_F) { this.IN_F = IN_F; }
-
+    /**
+     * Set ArrayList at destination
+     * @param ATL
+     */
     public void setATL(ArrayList<Integer> ATL) { this.ATL = ATL; }
 }

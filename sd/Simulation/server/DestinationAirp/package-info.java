@@ -1,6 +1,4 @@
 /**
- * @author António Ramos e Diogo Fernandes
- * Destination Airport
+ * Package Destination Airport
  */
-
 package Simulation.server.DestinationAirp;

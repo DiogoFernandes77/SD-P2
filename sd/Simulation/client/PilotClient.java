@@ -1,6 +1,6 @@
 package Simulation.client;
 /**
- * PilotClients is the class that instantiates the driver thread
+ * PilotClients is the class that instantiates the pilot thread
  */
 public class PilotClient{
     public static void main(String[] args)

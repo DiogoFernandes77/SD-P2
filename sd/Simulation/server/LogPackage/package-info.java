@@ -1,6 +1,4 @@
 /**
- * @author António Ramos e Diogo Fernandes
- * Log
+ * Package Log - here is the file output
  */
-
 package Simulation.server.LogPackage;

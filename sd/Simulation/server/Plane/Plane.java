@@ -14,6 +14,9 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.Random;
 
+/**
+ * Plane class - implement methods
+ */
 public class Plane  {
     // static variable single_instance of type Singleton
     private static Plane plane_instance = null;
@@ -28,17 +31,23 @@ public class Plane  {
 
     Random gen = new Random();
 
+    /**
+     * Constructor Plane
+     */
     public Plane(){
         plane = new ArrayList<Integer>();
         lock = new ReentrantLock();
         flying = lock.newCondition();
         hostess = lock.newCondition();
         cd_deboarding = lock.newCondition();
-        //Logger_stub.getInstance().arr("IN_F",plane);
     }
 
 
     //---------------------------------------------------/Pilot methods/-----------------------------------------------------//
+
+    /**
+     * Pilot flies to destination
+     */
     public void flyToDestinationPoint(){
         lock.lock();
         int delay = gen.nextInt(10);
@@ -51,7 +60,11 @@ public class Plane  {
             lock.unlock();
          }
     }
-    
+
+    /**
+     * Set of flight id
+     * @param id
+     */
     public void setFlightId(int id){
         lock.lock();
         try{
@@ -64,6 +77,9 @@ public class Plane  {
          }
     }
 
+    /**
+     * Pilot announce arrival
+     */
     public void announceArrival(){
         lock.lock();
         try{
@@ -80,7 +96,10 @@ public class Plane  {
             lock.unlock();
          }
     }
-    
+
+    /**
+     * Pilot flies to departure point
+     */
     public void flyToDeparturePoint(){
         lock.lock();
         int delay = gen.nextInt(10);
@@ -97,6 +116,9 @@ public class Plane  {
     }
 
     //---------------------------------------------------/Hostess methods/-----------------------------------------------------//
+    /**
+     * Waiting for boarding
+     */
     public void waitBoarding(){
         lock.lock();
         try{
@@ -113,6 +135,11 @@ public class Plane  {
     }
 
     //---------------------------------------------------/Passenger methods/-----------------------------------------------------//
+
+    /**
+     * Passenger of person enters on plane
+     * @param person
+     */
     public void boardThePlane(int person){
         lock.lock();
         try{
@@ -128,7 +155,9 @@ public class Plane  {
              lock.unlock();
          }
     }
-    
+    /**
+     * Passenger is in flight, wait for its end
+     */
     public void waitForEndOfFlight(){
         lock.lock();
         try{
@@ -142,7 +171,10 @@ public class Plane  {
             lock.unlock();
         }
     }
-    
+    /**
+     * Passenger person_id is leaving plane
+     * @param person_id
+     */
     public void leaveThePlane(int person){
         lock.lock();
         try{
@@ -159,6 +191,11 @@ public class Plane  {
     }
 
     //---------------------------------------------------/getters/setters/-----------------------------------------------------//
+
+    /**
+     * Get capacity of plane
+     * @return plane.size()
+     */
     public int getCapacity(){
         return plane.size();
     }

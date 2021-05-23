@@ -1,6 +1,4 @@
 /**
- * @author António Ramos e Diogo Fernandes
- * Plane
+ * Package Plane
  */
-
 package Simulation.server.Plane;

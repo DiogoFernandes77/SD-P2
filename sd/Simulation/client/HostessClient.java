@@ -1,9 +1,9 @@
 package Simulation.client;
-/**
- * HostessClient is the class that instantiates the driver thread
- */
-import Simulation.client.Hostess;
 
+import Simulation.client.Hostess;
+/**
+ * HostessClient is the class that instantiates the hostess thread
+ */
 public class HostessClient{
     public static void main(String[] args)
     {

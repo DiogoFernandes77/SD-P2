@@ -10,7 +10,9 @@ import Simulation.server.Serverable;
 import java.util.ArrayList;
 
 import static Simulation.message.struct.LoggerMessage.LG_Message.*;
-
+/**
+ * Logger interface para implementar as mensagens recebidas
+ */
 public class Logger_Interface implements Serverable {
     private Logger_Class logger = null;
     private int counter;
@@ -19,12 +21,15 @@ public class Logger_Interface implements Serverable {
         this.counter = counter + 2;
     }
 
-
+    /**
+     * Process and reply messages received
+     * @param inMessage
+     * @return
+     */
     @Override
     public Message processAndReply(Message inMessage) {
         Message response = null;
         Enum type = inMessage.getType();
-       
 
         if(PASS_STATE.equals(type)){
             int id = ((LoggerMessage) inMessage).getId();
@@ -49,10 +54,8 @@ public class Logger_Interface implements Serverable {
         } else if(PIL_STATE_LOG.equals(type) ) {
             Pilot_State ST_Pilot = ((LoggerMessage) inMessage).getST_Pilot();
             String log = ((LoggerMessage) inMessage).getLog();
-
             if (ST_Pilot.equals(Pilot_State.READY_FOR_BOARDING)){
                 int FN = ((LoggerMessage) inMessage).getFN();
-
                 synchronized (Logger_Class.class){
                     logger.setST_Pilot(ST_Pilot);
                     logger.setFN(FN);
@@ -60,14 +63,12 @@ public class Logger_Interface implements Serverable {
                 }
             } else if (ST_Pilot.equals(Pilot_State.DEBOARDING)){
                 int FN = ((LoggerMessage) inMessage).getFN();
-
                 synchronized (Logger_Class.class){
                     logger.setST_Pilot(ST_Pilot);
                     logger.board_start("\nFlight " + FN + ": arrived.\n");
                 }
             } else if (ST_Pilot.equals(Pilot_State.FLYING_BACK)){
                 int FN = ((LoggerMessage) inMessage).getFN();
-
                 synchronized (Logger_Class.class){
                     logger.setST_Pilot(ST_Pilot);
                     logger.board_start("\nFlight " + FN + ": returning.\n");
@@ -100,7 +101,6 @@ public class Logger_Interface implements Serverable {
             synchronized (Logger_Class.class){
                 logger.departed(capacity);
             }
-        
         }else if (PASS_ATL.equals(type)){
             ArrayList<Integer> ATL = ((LoggerMessage) inMessage).getATL();
             synchronized (Logger_Class.class){
@@ -110,7 +110,6 @@ public class Logger_Interface implements Serverable {
             ArrayList<Integer> Q = ((LoggerMessage) inMessage).getQ();
             synchronized (Logger_Class.class){
                 logger.setQ(Q);
-                
             }
         }else if (PASS_ENTER_PLANE.equals(type)){
             ArrayList<Integer> IN_F = ((LoggerMessage) inMessage).getIN_F();
@@ -120,15 +119,12 @@ public class Logger_Interface implements Serverable {
         } else if (SHUT.equals(type)){
             if(--counter == 0){
                 synchronized (Logger_Class.class){
-                   
                     logger.summary();
                 }
             
             Logger_Server.waitConnection = false;
             (((Proxy) (Thread.currentThread())).getScon()).setTimeout(10);
             }
-            
-
         }
         response = new LoggerMessage(SUCCESS);  
         return response;
