@@ -77,8 +77,10 @@ public class Passenger extends Thread{
 
     private void death(){
         passenger_state = Passenger_State.AT_DESTINATION;
-        Logger_stub.getInstance().pass_state_log(passenger_state,id_passenger,"Passenger " + id_passenger + " is at destination");
         DestAirp_stub.getInstance().Passenger_death(id_passenger);
+        Logger_stub.getInstance().pass_state_log(passenger_state,id_passenger,"Passenger " + id_passenger + " is at destination");
+        
+        
     }
 
     public int getId_passenger(){

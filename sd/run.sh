@@ -13,7 +13,11 @@ run ()
      --tab --hold -e "bash -c 'java Simulation.client.PilotClient '" -T "Pilot" \
      --tab --hold -e "bash -c 'java Simulation.client.HostessClient '" -T "Hostess" \
      --tab --hold -e "bash -c 'java  Simulation.client.PassengerClient 0'" -T "Pass 0" \
-     --tab --hold -e "bash -c 'java  Simulation.client.PassengerClient 1'" -T "Pass 1" 
+     --tab --hold -e "bash -c 'java  Simulation.client.PassengerClient 1'" -T "Pass 1" \
+     --tab --hold -e "bash -c 'java  Simulation.client.PassengerClient 0'" -T "Pass 2" \
+     --tab --hold -e "bash -c 'java  Simulation.client.PassengerClient 1'" -T "Pass 3" \
+     --tab --hold -e "bash -c 'java  Simulation.client.PassengerClient 0'" -T "Pass 4" \
+     --tab --hold -e "bash -c 'java  Simulation.client.PassengerClient 1'" -T "Pass 5" 
    
      
      

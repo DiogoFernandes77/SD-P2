@@ -138,6 +138,7 @@ public class Logger_Class {
     // summary of flights
     public void summary(){
         try {
+            
             fileWriter = new FileWriter(file_name, true);
             fileWriter.write("\nAirlift sum up:\n");
             for (String s : Summary)
@@ -171,6 +172,7 @@ public class Logger_Class {
                 //struct_string.append("");
             }
             fileWriter.write(struct_string.toString());
+            fileWriter.flush();
             fileWriter.close();
 
         } catch (IOException e){

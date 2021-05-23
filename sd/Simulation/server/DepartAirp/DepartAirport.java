@@ -127,6 +127,7 @@ public class DepartAirport {
                 waitingShow.await();  
             }
             queue.remove();
+            Logger_stub.getInstance().pass_enter_queue(queue);
             showing = false;
             rdyCheck = false;
             waitingPassenger.signal();
