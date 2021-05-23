@@ -20,6 +20,7 @@ run ()
 
 
 #command to compile
+
 #javac $(find . -name "*.java") -Xlint:unchecked
 
 for i in $(seq 1 1)
