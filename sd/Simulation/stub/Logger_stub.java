@@ -3,10 +3,10 @@ package Simulation.stub;
 import Simulation.client.ClientCom;
 import Simulation.client.Hostess;
 import Simulation.client.Passenger;
-import Simulation.States.Pilot_State;
+import Simulation.client.Pilot;
 import Simulation.message.struct.DepartureAirpMessage;
 import Simulation.message.struct.LoggerMessage;
-
+import Simulation.States.*;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
@@ -34,7 +34,7 @@ public class Logger_stub {
     }
 
     // Passenger methods
-    public void pass_state(Passenger.State st, int id){
+    public void pass_state(Passenger_State st, int id){
         ClientCom con = new ClientCom("localhost",4004);
         LoggerMessage requestMessage, responseMessage;
 
@@ -51,7 +51,7 @@ public class Logger_stub {
     }
 
     //Passenger log
-    public void pass_state_log(Passenger.State st, int id, String x){
+    public void pass_state_log(Passenger_State st, int id, String x){
         ClientCom con = new ClientCom("localhost",4004);
         LoggerMessage requestMessage, responseMessage;
 
@@ -155,7 +155,7 @@ public class Logger_stub {
     }
 
     // Hostess method
-    public void hostess_state(Hostess.State ht){
+    public void hostess_state(Hostess_State ht){
         ClientCom con = new ClientCom("localhost",4004);
         LoggerMessage requestMessage, responseMessage;
 
@@ -171,7 +171,7 @@ public class Logger_stub {
         }
     }
 
-    public void hostess_state_log(Hostess.State ht, String x){
+    public void hostess_state_log(Hostess_State ht, String x){
         ClientCom con = new ClientCom("localhost",4004);
         LoggerMessage requestMessage, responseMessage;
 

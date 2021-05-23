@@ -6,23 +6,19 @@ package Simulation.client;
 
 import Simulation.stub.Logger_stub;
 import Simulation.stub.Plane_stub;
+import Simulation.States.Hostess_State;
 import Simulation.stub.DepAirp_stub;
 
 /**
  *
  */
 public class Hostess extends Thread{
-    public enum State{
-        WAIT_FOR_NEXT_FLIGHT,
-        WAIT_FOR_PASSENGER,
-        CHECK_PASSENGER,
-        READY_TO_FLY
-    }
+    
 
-    private State hostess_state;
+    private Hostess_State hostess_state;
     private boolean end_flag = false;
     public Hostess(){
-        hostess_state = State.WAIT_FOR_NEXT_FLIGHT;
+        hostess_state = Hostess_State.WAIT_FOR_NEXT_FLIGHT;
         Logger_stub.getInstance().hostess_state(hostess_state);
     }
 
@@ -54,25 +50,25 @@ public class Hostess extends Thread{
     }
 
     private void waitForNextFlight(){
-        hostess_state = State.WAIT_FOR_NEXT_FLIGHT;
+        hostess_state = Hostess_State.WAIT_FOR_NEXT_FLIGHT;
         Logger_stub.getInstance().hostess_state_log(hostess_state, "Hostess is waiting for next flight");
         DepAirp_stub.getInstance().waitForNextFlight();
     }
 
     private void prepareForPassBoarding(){
-        hostess_state = State.WAIT_FOR_PASSENGER;
+        hostess_state = Hostess_State.WAIT_FOR_PASSENGER;
         Logger_stub.getInstance().hostess_state_log(hostess_state, "Hostess is waiting for passenger");
         DepAirp_stub.getInstance().prepareForPassBoarding();
     }
 
     private void waitForNextPassenger(){
-        hostess_state = State.WAIT_FOR_PASSENGER;
+        hostess_state = Hostess_State.WAIT_FOR_PASSENGER;
         Logger_stub.getInstance().hostess_state_log(hostess_state, "Hostess is waiting for passenger");
         DepAirp_stub.getInstance().waitForNextPassenger();
     }
 
     private void checkDocuments(){
-        hostess_state = State.CHECK_PASSENGER;
+        hostess_state = Hostess_State.CHECK_PASSENGER;
         Logger_stub.getInstance().hostess_state_log(hostess_state, "Hostess is checking documents of passengers");
         DepAirp_stub.getInstance().checkDocuments();
     }
@@ -82,7 +78,7 @@ public class Hostess extends Thread{
    }
     
     private void informPlaneReadyToTakeOff(){
-        hostess_state = State.READY_TO_FLY;
+        hostess_state = Hostess_State.READY_TO_FLY;
         Logger_stub.getInstance().hostess_state_log(hostess_state, "Hostess tell pilot that he can fly");
         DepAirp_stub.getInstance().informPlaneReadyToTakeOff();
     }

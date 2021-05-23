@@ -5,9 +5,7 @@
 
 package Simulation.server.LogPackage;
 
-import Simulation.client.Hostess;
-import Simulation.client.Passenger;
-import Simulation.States.Pilot_State;
+import Simulation.States.*;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -25,9 +23,9 @@ public class Logger_Class {
 
     //auxiliar variables
     int FN; // number of flight
-    public Passenger.State[] ST_Passenger; // State of the Passengers; save state of each passenger
+    public Passenger_State[] ST_Passenger; // State of the Passengers; save state of each passenger
     public Pilot_State ST_Pilot; // State of the Pilot
-    public Hostess.State ST_Hostess; // State of the Hostess
+    public Hostess_State ST_Hostess; // State of the Hostess
 
     private ArrayList<Integer> Q; // State of the waiting queue
     private ArrayList<Integer> IN_F; // State of in flight
@@ -47,9 +45,9 @@ public class Logger_Class {
 
     public Logger_Class(int nPassenger) {
         this.nPassenger = nPassenger;
-        ST_Passenger = new Passenger.State[nPassenger];
+        ST_Passenger = new Passenger_State[nPassenger];
         ST_Pilot =  Pilot_State.AT_TRANSFER_GATE;
-        ST_Hostess = Hostess.State.WAIT_FOR_NEXT_FLIGHT;
+        ST_Hostess = Hostess_State.WAIT_FOR_NEXT_FLIGHT;
         Q = new ArrayList<Integer>();
         IN_F = new ArrayList<Integer>();
         ATL = new ArrayList<Integer>();
@@ -186,7 +184,7 @@ public class Logger_Class {
 
     public void setFN(int FN) { this.FN = FN; }
 
-    public void setST_Passenger(int id, Passenger.State ST_Passenger) { 
+    public void setST_Passenger(int id, Passenger_State ST_Passenger) { 
         
         this.ST_Passenger[id] = ST_Passenger; 
     
@@ -196,7 +194,7 @@ public class Logger_Class {
         
         this.ST_Pilot = ST_Pilot; }
 
-    public void setST_Hostess(Hostess.State st) { this.ST_Hostess = st; }
+    public void setST_Hostess(Hostess_State st) { this.ST_Hostess = st; }
 
     public void setQ(ArrayList<Integer> q) { this.Q =  q; }
 

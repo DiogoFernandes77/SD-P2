@@ -7,8 +7,10 @@ package Simulation.client;
 
 import java.util.Random;
 
+
 import Simulation.stub.Logger_stub;
 import Simulation.stub.Plane_stub;
+import Simulation.States.Passenger_State;
 import Simulation.stub.DepAirp_stub;
 import Simulation.stub.DestAirp_stub;
 
@@ -16,16 +18,11 @@ public class Passenger extends Thread{
     private int id_passenger = 0;
     private int count_AtDest = 0;
 
-    public enum State{
-        GOING_TO_AIRPORT,
-        IN_QUEUE,
-        IN_FLIGHT,
-        AT_DESTINATION
-    }
-    private State passenger_state;
+    
+    private Passenger_State passenger_state;
     
     public Passenger(int id){
-        passenger_state = State.GOING_TO_AIRPORT;
+        passenger_state = Passenger_State.GOING_TO_AIRPORT;
         id_passenger = id;
         Logger_stub.getInstance().pass_state(passenger_state,id_passenger);
     }
@@ -56,13 +53,13 @@ public class Passenger extends Thread{
     }
 
     private void enterQueue(){
-        passenger_state = State.IN_QUEUE;
+        passenger_state = Passenger_State.IN_QUEUE;
         Logger_stub.getInstance().pass_state_log(passenger_state,id_passenger, "Passenger " + id_passenger + " is entering in queue");
         DepAirp_stub.getInstance().enterQueue(id_passenger);
     }
 
     private void waitInQueue(){
-        passenger_state = State.IN_QUEUE;
+        passenger_state = Passenger_State.IN_QUEUE;
         Logger_stub.getInstance().pass_state_log(passenger_state,id_passenger, "Passenger " + id_passenger + " is in queue");
         DepAirp_stub.getInstance().waitInQueue(id_passenger);
     }
@@ -71,7 +68,7 @@ public class Passenger extends Thread{
     private void boardThePlane(){ Plane_stub.getInstance().boardThePlane(id_passenger); }
 
     private void waitForEndOfFlight(){
-        passenger_state = State.IN_FLIGHT;
+        passenger_state = Passenger_State.IN_FLIGHT;
         Logger_stub.getInstance().pass_state_log(passenger_state,id_passenger,"Passenger " + id_passenger + " is in flight");
         Plane_stub.getInstance().waitForEndOfFlight();
     }
@@ -79,7 +76,7 @@ public class Passenger extends Thread{
     private void leaveThePlane(){ Plane_stub.getInstance().leaveThePlane(id_passenger); }
 
     private void death(){
-        passenger_state = State.AT_DESTINATION;
+        passenger_state = Passenger_State.AT_DESTINATION;
         Logger_stub.getInstance().pass_state_log(passenger_state,id_passenger,"Passenger " + id_passenger + " is at destination");
         DestAirp_stub.getInstance().Passenger_death(id_passenger);
     }

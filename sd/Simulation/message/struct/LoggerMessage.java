@@ -1,8 +1,7 @@
 package Simulation.message.struct;
 
-import Simulation.client.Hostess;
-import Simulation.client.Passenger;
-import Simulation.States.Pilot_State;
+import Simulation.States.*;
+
 import java.util.ArrayList;
 import java.util.logging.Logger;
 import Simulation.message.Message;
@@ -42,9 +41,9 @@ public class LoggerMessage implements Serializable, Message{
     private int id;
     //auxiliary variables
     int FN; // number of flight
-    public Passenger.State ST_Passenger; // State of the Passengers; save state of each passenger
+    public Passenger_State ST_Passenger; // State of the Passengers; save state of each passenger
     public Pilot_State ST_Pilot; // State of the Pilot
-    public Hostess.State ST_Hostess; // State of the Hostess
+    public Hostess_State ST_Hostess; // State of the Hostess
 
     public ArrayList<Integer> Q; // State of the waiting queue
     public ArrayList<Integer> IN_F; // State of in flight
@@ -57,26 +56,26 @@ public class LoggerMessage implements Serializable, Message{
     public LoggerMessage(LG_Message type) {this.type = type;}
 
     //state passenger
-    public LoggerMessage(LG_Message type, Passenger.State st, int id){
+    public LoggerMessage(LG_Message type, Passenger_State st, int id){
         this(type);
         this.id = id;
         this.ST_Passenger = st;
     }
     //log passenger
-    public LoggerMessage(LG_Message type, Passenger.State st, int id, String x){
+    public LoggerMessage(LG_Message type, Passenger_State st, int id, String x){
         this(type, st, id);
         this.log = x;
     }
 
    
     //state hostess
-    public LoggerMessage(LG_Message type, Hostess.State ht){
+    public LoggerMessage(LG_Message type, Hostess_State ht){
         this(type);
         this.ST_Hostess = ht;
     }
 
     //state log hostess
-    public LoggerMessage(LG_Message type, Hostess.State ht,String x){
+    public LoggerMessage(LG_Message type, Hostess_State ht,String x){
         this(type, ht);
         this.log = x;
     }
@@ -149,11 +148,11 @@ public class LoggerMessage implements Serializable, Message{
 
     public int getFN() { return FN; }
 
-    public Passenger.State getST_Passenger() { return ST_Passenger; }
+    public Passenger_State getST_Passenger() { return ST_Passenger; }
 
     public Pilot_State getST_Pilot() { return ST_Pilot; }
 
-    public Hostess.State getST_Hostess() { return ST_Hostess; }
+    public Hostess_State getST_Hostess() { return ST_Hostess; }
 
     public ArrayList<Integer> getQ() { return Q; }
 

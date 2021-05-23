@@ -1,6 +1,5 @@
 package Simulation.server.LogPackage;
-import Simulation.client.Hostess;
-import Simulation.client.Passenger;
+
 import Simulation.States.*;
 import Simulation.message.Message;
 import Simulation.message.struct.LoggerMessage;
@@ -29,14 +28,14 @@ public class Logger_Interface implements Serverable {
 
         if(PASS_STATE.equals(type)){
             int id = ((LoggerMessage) inMessage).getId();
-            Passenger.State ST_Passenger = ((LoggerMessage) inMessage).getST_Passenger();
+            Passenger_State ST_Passenger = ((LoggerMessage) inMessage).getST_Passenger();
             synchronized (Logger_Class.class){
                 logger.setST_Passenger(id, ST_Passenger);
                 //logger.log_write("");
             }
         }else if(PASS_STATE_LOG.equals(type)){
           int id = ((LoggerMessage) inMessage).getId();
-          Passenger.State ST_Passenger = ((LoggerMessage) inMessage).getST_Passenger();
+          Passenger_State ST_Passenger = ((LoggerMessage) inMessage).getST_Passenger();
           String log = ((LoggerMessage) inMessage).getLog();
           synchronized (Logger_Class.class){
               logger.setST_Passenger(id,ST_Passenger);
@@ -80,12 +79,12 @@ public class Logger_Interface implements Serverable {
                 }
             }
         }else if (HOS_STATE.equals(type)){
-            Hostess.State ST_Hostess = ((LoggerMessage) inMessage).getST_Hostess();
+            Hostess_State ST_Hostess = ((LoggerMessage) inMessage).getST_Hostess();
             synchronized (Logger_Class.class){
                 logger.setST_Hostess(ST_Hostess);
             }
         } else if (HOS_STATE_LOG.equals(type)){
-            Hostess.State ST_Hostess = ((LoggerMessage) inMessage).getST_Hostess();
+            Hostess_State ST_Hostess = ((LoggerMessage) inMessage).getST_Hostess();
             String log = ((LoggerMessage) inMessage).getLog();
             synchronized (Logger_Class.class){
                 logger.setST_Hostess(ST_Hostess);
