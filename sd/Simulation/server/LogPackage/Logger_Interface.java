@@ -100,12 +100,17 @@ public class Logger_Interface implements Serverable {
             synchronized (Logger_Class.class){
                 logger.departed(capacity);
             }
+        }else if (PASS_ATL_SET.equals(type)){
+            ArrayList<Integer> ATL = new ArrayList<>();
+            synchronized (Logger_Class.class){
+                logger.setATL(ATL);
+            }
         }else if (PASS_ATL.equals(type)){
             ArrayList<Integer> ATL = ((LoggerMessage) inMessage).getATL();
             synchronized (Logger_Class.class){
                 logger.setATL(ATL);
             }
-        }else if (PASS_IN_Q.equals(type)){
+        } else if (PASS_IN_Q.equals(type)){
             ArrayList<Integer> Q = ((LoggerMessage) inMessage).getQ();
             synchronized (Logger_Class.class){
                 logger.setQ(Q);

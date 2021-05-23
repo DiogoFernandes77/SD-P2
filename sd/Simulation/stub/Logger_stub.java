@@ -219,6 +219,22 @@ public class Logger_stub {
         }
     }
 
+    public void pass_leave_plane_set(ArrayList<Integer> arrayList){
+        ClientCom con = new ClientCom("localhost",4004);
+        LoggerMessage requestMessage, responseMessage;
+
+        if (con.open()){
+            requestMessage = new LoggerMessage(PASS_ATL_SET,arrayList);
+            con.writeObject(requestMessage);
+            responseMessage = (LoggerMessage) con.readObject();
+            if (responseMessage.getType() != SUCCESS)
+            {
+                System.out.println("Error receiving message from Logger");
+            }
+            con.close();
+        }
+    }
+
     public void pass_leave_plane(ArrayList<Integer> arrayList){
         ClientCom con = new ClientCom("localhost",4004);
         LoggerMessage requestMessage, responseMessage;

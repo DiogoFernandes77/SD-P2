@@ -52,7 +52,7 @@ public class Logger_Class {
         ST_Hostess = Hostess.State.WAIT_FOR_NEXT_FLIGHT;
         Q = new ArrayList<Integer>();
         IN_F = new ArrayList<Integer>();
-        //ATL = new ArrayList<Integer>();
+        ATL = new ArrayList<Integer>();
 
         this.init();
     }
@@ -167,8 +167,11 @@ public class Logger_Class {
                     //struct_string.append("");
                 }
             }
-
-            struct_string.append("\t").append(Q.size()).append("\t").append(IN_F.size()).append("\t").append(ATL.size()).append("\n");
+            try{
+                struct_string.append("\t").append(Q.size()).append("\t").append(IN_F.size()).append("\t").append(ATL.size()).append("\n");
+            }catch(NullPointerException e){
+                //struct_string.append("");
+            }
             fileWriter.write(struct_string.toString());
             fileWriter.close();
 
